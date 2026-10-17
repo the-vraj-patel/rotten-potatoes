@@ -37,11 +37,15 @@ if (isset($_COOKIE["theme"]) && isset($themes[$_COOKIE["theme"]])) {
     $theme = $_COOKIE["theme"];
 }
 
-// The intro animation plays on the homepage once per visit (session)
+// The intro animation plays when someone opens the homepage from outside the site
+// (new tab, typed address, bookmark). HTTP_REFERER is the page the visitor came from:
+// if it is one of our own pages (they clicked "Home"), the intro is skipped.
 $showIntro = false;
-if ($activeType == "home" && !isset($_SESSION["intro_seen"])) {
-    $showIntro = true;
-    $_SESSION["intro_seen"] = true;
+if ($activeType == "home") {
+    $cameFromOurSite = isset($_SERVER["HTTP_REFERER"]) && strpos($_SERVER["HTTP_REFERER"], $_SERVER["HTTP_HOST"]) !== false;
+    if (!$cameFromOurSite) {
+        $showIntro = true;
+    }
 }
 
 if (!isset($pageTitle))  { $pageTitle = "Rotten Potatoes"; }
@@ -63,9 +67,9 @@ $searchText = isset($_GET["q"]) ? $_GET["q"] : "";
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Our own CSS (external stylesheet). Change ?v=5 to a new number after editing the CSS,
+    <!-- Our own CSS (external stylesheet). Change ?v=6 to a new number after editing the CSS,
          so browsers load the new file instead of an old saved copy. -->
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body class="theme-<?php echo $theme; ?>">
 

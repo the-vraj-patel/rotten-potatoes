@@ -50,9 +50,9 @@ include "includes/header.php";
             if (count($list) > 0) {
         ?>
             <h3 class="search-group"><?php echo $categories[$category]; ?></h3>
-            <div class="row g-4 mb-4">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4 mb-4">
                 <?php
-                $cardCols = "col-6 col-md-4 col-lg-3 col-xxl-2";
+                $cardCols = "col";
                 foreach (sortTitles($list, "rating") as $id => $movie) {
                     include "includes/movie-card.php";
                 }

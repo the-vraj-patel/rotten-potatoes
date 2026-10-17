@@ -11,6 +11,14 @@ html {
     font-size: 125%;
 }
 
+/* Wider content area: Bootstrap's .container is replaced by 94% of the screen
+   (up to 1700px), so there is only a small margin on the left and right */
+.container {
+    max-width: 1700px;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
 /* ---------- CSS Variables: the "Classic" theme (default) ---------- */
 :root {
     --bg:             #0f0d0b;   /* page background */
@@ -1410,6 +1418,8 @@ a.glance-cell:hover {
 
 /* Slim strip above the logo with the theme picker and Login / Register */
 .top-strip {
+    position: relative;
+    z-index: 1030;                   /* above the sticky navbar, so the theme menu opens in front */
     background-color: var(--bg);
     border-bottom: 1px solid var(--border);
     padding: 8px 0;
