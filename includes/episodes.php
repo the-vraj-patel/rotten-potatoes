@@ -3,76 +3,124 @@
  * episodes.php — the episode section of a web series / anime page.
  * Included by details.php, which sets $id, $seasons, $season, $current and $ratings.
  *
- * Part 1: a table with the rating of every episode (one column per season),
- *         coloured from green (great) to red (rotten). Click a number to jump to it.
+ * Part 1: "Ratings at a Glance": highlights (best, worst, average) and a table with
+ *         the rating of every episode, one column per season, coloured from
+ *         green (great) to red (rotten). Click a number to jump to that episode.
  * Part 2: buttons to choose a season (details.php?id=...&season=2)
- * Part 3: a table with every episode of the chosen season, its rating and stars
+ * Part 3: every episode of the chosen season, with its rating and stars
  *         so visitors can rate each episode individually.
  */
 
-// The longest season decides how many rows the table needs
+// Go through all episodes once to find: the longest season, the best and worst
+// episode, and the average of all episode ratings
 $maxEpisodes = 0;
+$best   = null;
+$worst  = null;
+$sum    = 0;
+$rated  = 0;
 foreach ($seasons as $s) {
     if (count($s["episodes"]) > $maxEpisodes) {
         $maxEpisodes = count($s["episodes"]);
     }
+    foreach ($s["episodes"] as $ep) {
+        if ($ep["rating"] == null) {
+            continue;
+        }
+        if ($best == null || $ep["rating"] > $best["rating"]) {
+            $best = $ep;
+        }
+        if ($worst == null || $ep["rating"] < $worst["rating"]) {
+            $worst = $ep;
+        }
+        $sum += $ep["rating"];
+        $rated++;
+    }
 }
 ?>
 
-<!-- ===== Part 1: rating table ===== -->
-<section class="info-block mt-4">
-    <h4>Ratings at a Glance</h4>
+<!-- ===== Part 1: Ratings at a Glance ===== -->
+<section class="info-block mt-4 glance">
+    <div class="glance-head">
+        <div>
+            <h4>Ratings at a Glance</h4>
+            <p>Every episode's score out of 10. Click a score to jump to that episode.</p>
+        </div>
+    </div>
 
-    <div class="episode-grid-wrap">
-        <table class="episode-grid">
-            <tr>
-                <th></th>
-                <?php foreach ($seasons as $s) { ?>
-                    <th title="<?php echo htmlspecialchars($s["name"]); ?>">S<?php echo $s["number"]; ?></th>
-                <?php } ?>
-            </tr>
+    <?php if ($rated > 0) { ?>
+        <!-- Highlights -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <a class="glance-stat" href="details.php?id=<?php echo $id; ?>&season=<?php echo $best["season"]; ?>#ep-<?php echo $best["id"]; ?>">
+                    <span class="glance-stat-label">🏆 Best episode</span>
+                    <span class="glance-stat-value r-text-great"><?php echo number_format($best["rating"], 1); ?></span>
+                    <span class="glance-stat-name">S<?php echo $best["season"]; ?> E<?php echo $best["number"]; ?> &middot; <?php echo htmlspecialchars($best["name"]); ?></span>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <div class="glance-stat">
+                    <span class="glance-stat-label">📊 Average episode</span>
+                    <span class="glance-stat-value"><?php echo number_format($sum / $rated, 1); ?></span>
+                    <span class="glance-stat-name"><?php echo $rated; ?> rated episodes in <?php echo count($seasons); ?> season(s)</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <a class="glance-stat" href="details.php?id=<?php echo $id; ?>&season=<?php echo $worst["season"]; ?>#ep-<?php echo $worst["id"]; ?>">
+                    <span class="glance-stat-label">🥔 Lowest episode</span>
+                    <span class="glance-stat-value r-text-bad"><?php echo number_format($worst["rating"], 1); ?></span>
+                    <span class="glance-stat-name">S<?php echo $worst["season"]; ?> E<?php echo $worst["number"]; ?> &middot; <?php echo htmlspecialchars($worst["name"]); ?></span>
+                </a>
+            </div>
+        </div>
+    <?php } ?>
 
-            <?php for ($row = 0; $row < $maxEpisodes; $row++) { ?>
+    <!-- The table: one column per season, one row per episode number -->
+    <div class="glance-table-wrap">
+        <table class="glance-table">
+            <thead>
                 <tr>
-                    <th>E<?php echo $row + 1; ?></th>
+                    <th class="corner">Episode</th>
                     <?php foreach ($seasons as $s) { ?>
-                        <td>
-                            <?php if (isset($s["episodes"][$row])) {
-                                $ep = $s["episodes"][$row];
-                            ?>
-                                <a href="details.php?id=<?php echo $id; ?>&season=<?php echo $s["number"]; ?>#ep-<?php echo $ep["id"]; ?>"
-                                   class="grid-cell <?php echo ratingClass($ep["rating"]); ?>"
-                                   title="<?php echo htmlspecialchars($ep["name"]); ?>">
-                                    <?php if ($ep["rating"] != null) { echo number_format($ep["rating"], 1); } else { echo "–"; } ?>
-                                </a>
-                            <?php } ?>
-                        </td>
+                        <th title="<?php echo htmlspecialchars($s["name"]); ?>">
+                            <span class="season-name">S<?php echo $s["number"]; ?></span>
+                            <span class="season-avg <?php echo ratingClass($s["rating"]); ?>">
+                                <?php if ($s["rating"] != null) { echo number_format($s["rating"], 1); } else { echo "–"; } ?>
+                            </span>
+                        </th>
                     <?php } ?>
                 </tr>
-            <?php } ?>
-
-            <!-- Last row: average of each season -->
-            <tr class="grid-average">
-                <th>Avg</th>
-                <?php foreach ($seasons as $s) { ?>
-                    <td>
-                        <span class="grid-cell <?php echo ratingClass($s["rating"]); ?>">
-                            <?php if ($s["rating"] != null) { echo number_format($s["rating"], 1); } else { echo "–"; } ?>
-                        </span>
-                    </td>
+            </thead>
+            <tbody>
+                <?php for ($row = 0; $row < $maxEpisodes; $row++) { ?>
+                    <tr>
+                        <th>E<?php echo $row + 1; ?></th>
+                        <?php foreach ($seasons as $s) { ?>
+                            <td>
+                                <?php if (isset($s["episodes"][$row])) {
+                                    $ep = $s["episodes"][$row];
+                                ?>
+                                    <a href="details.php?id=<?php echo $id; ?>&season=<?php echo $s["number"]; ?>#ep-<?php echo $ep["id"]; ?>"
+                                       class="glance-cell <?php echo ratingClass($ep["rating"]); ?>"
+                                       title="S<?php echo $ep["season"]; ?> E<?php echo $ep["number"]; ?>: <?php echo htmlspecialchars($ep["name"]); ?>">
+                                        <?php if ($ep["rating"] != null) { echo number_format($ep["rating"], 1); } else { echo "–"; } ?>
+                                    </a>
+                                <?php } ?>
+                            </td>
+                        <?php } ?>
+                    </tr>
                 <?php } ?>
-            </tr>
+            </tbody>
         </table>
     </div>
 
-    <p class="grid-legend">
-        <span class="grid-cell r-great">9+</span> Awesome
-        <span class="grid-cell r-good">8+</span> Great
-        <span class="grid-cell r-ok">7+</span> Good
-        <span class="grid-cell r-meh">6+</span> Okay
-        <span class="grid-cell r-bad">&lt;6</span> Rotten
-        <span class="grid-cell r-none">–</span> No rating yet
-    </p>
+    <div class="glance-legend">
+        <span><i class="r-great"></i> 9+ Awesome</span>
+        <span><i class="r-good"></i> 8+ Great</span>
+        <span><i class="r-ok"></i> 7+ Good</span>
+        <span><i class="r-meh"></i> 6+ Okay</span>
+        <span><i class="r-bad"></i> Below 6 Rotten</span>
+        <span><i class="r-none"></i> No rating yet</span>
+    </div>
 </section>
 
 <!-- ===== Part 2: choose a season ===== -->
@@ -92,56 +140,30 @@ foreach ($seasons as $s) {
         <?php } ?>
     </p>
 
-    <!-- ===== Part 3: episodes of the chosen season, in a table ===== -->
-    <div class="table-responsive episode-table-wrap">
-        <table class="table episode-table align-middle">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Episode</th>
-                    <th class="d-none d-md-table-cell">Aired</th>
-                    <th>Score</th>
-                    <th>Rate this episode</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($current["episodes"] as $ep) { ?>
-                    <tr id="ep-<?php echo $ep["id"]; ?>">
-                        <td class="ep-number"><?php echo $ep["number"]; ?></td>
+    <!-- ===== Part 3: episodes of the chosen season ===== -->
+    <?php foreach ($current["episodes"] as $ep) { ?>
+        <div class="episode" id="ep-<?php echo $ep["id"]; ?>">
+            <div class="episode-number">E<?php echo $ep["number"]; ?></div>
 
-                        <td class="ep-main">
-                            <div class="ep-flex">
-                                <?php if ($ep["image"] != "") { ?>
-                                    <img class="ep-still d-none d-lg-block" src="<?php echo $ep["image"]; ?>" alt="">
-                                <?php } ?>
-                                <div>
-                                    <strong><?php echo htmlspecialchars($ep["name"]); ?></strong>
-                                    <?php if ($ep["summary"] != "") { ?>
-                                        <p class="ep-summary"><?php echo htmlspecialchars($ep["summary"]); ?></p>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        </td>
+            <?php if ($ep["image"] != "") { ?>
+                <img class="episode-still" src="<?php echo $ep["image"]; ?>" alt="">
+            <?php } ?>
 
-                        <td class="ep-date d-none d-md-table-cell">
-                            <?php echo $ep["airdate"]; ?>
-                            <?php if ($ep["runtime"] != null) { ?><br><small><?php echo $ep["runtime"]; ?> min</small><?php } ?>
-                        </td>
+            <div class="episode-body">
+                <h5><?php echo htmlspecialchars($ep["name"]); ?></h5>
+                <p class="episode-meta">
+                    <?php echo $ep["airdate"]; ?>
+                    <?php if ($ep["runtime"] != null) { echo " &middot; " . $ep["runtime"] . " min"; } ?>
+                </p>
+                <p class="episode-summary"><?php echo htmlspecialchars($ep["summary"]); ?></p>
+            </div>
 
-                        <td class="ep-score">
-                            <?php if ($ep["rating"] != null) { ?>
-                                <span class="score-pill <?php echo ratingClass($ep["rating"]); ?>"><?php echo number_format($ep["rating"], 1); ?></span>
-                                <!-- small bar: 10/10 = full width -->
-                                <div class="mini-bar"><div class="<?php echo ratingClass($ep["rating"]); ?>" style="width: <?php echo $ep["rating"] * 10; ?>%"></div></div>
-                            <?php } else { ?>
-                                <span class="score-pill r-none">–</span>
-                            <?php } ?>
-                        </td>
-
-                        <td class="ep-rate"><?php echo ratingForm($id, $season, $ep["id"], $ratings, ""); ?></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-    </div>
+            <div class="episode-rating">
+                <span class="episode-score <?php echo ratingClass($ep["rating"]); ?>">
+                    <?php if ($ep["rating"] != null) { echo "★ " . number_format($ep["rating"], 1); } else { echo "No score"; } ?>
+                </span>
+                <?php echo ratingForm($id, $season, $ep["id"], $ratings, ""); ?>
+            </div>
+        </div>
+    <?php } ?>
 </section>

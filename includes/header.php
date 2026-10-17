@@ -26,8 +26,9 @@ $searchText = isset($_GET["q"]) ? $_GET["q"] : "";
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Our own CSS (external stylesheet) -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Our own CSS (external stylesheet). Change ?v=3 to a new number after editing the CSS,
+         so browsers load the new file instead of an old saved copy. -->
+    <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 

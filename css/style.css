@@ -555,7 +555,11 @@ img[src$=".jpg"] {
 }
 
 .poster-row-item {
-    flex: 0 0 170px;
+    flex: 0 0 140px;
+}
+
+.poster-row .card-title {
+    font-size: 0.9rem;
 }
 
 /* ---------- Extra card bits ---------- */
@@ -753,64 +757,6 @@ a.genre-pill:hover {
     font-size: 1.1rem;
 }
 
-/* ---------- Episode rating table ---------- */
-.episode-grid-wrap {
-    overflow: auto;
-    max-height: 520px;
-}
-
-.episode-grid {
-    border-collapse: separate;
-    border-spacing: 4px;
-}
-
-.episode-grid th {
-    color: var(--muted);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-align: center;
-    padding: 0 4px;
-}
-
-.grid-cell {
-    display: inline-block;
-    min-width: 44px;
-    padding: 5px 4px;
-    border-radius: 6px;
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #14110d;
-}
-
-a.grid-cell:hover {
-    color: #14110d;
-    outline: 2px solid var(--text);
-}
-
-.r-great { background-color: #3e9b4f; }
-.r-good  { background-color: #8cc152; }
-.r-ok    { background-color: #e0c048; }
-.r-meh   { background-color: #e08a3c; }
-.r-bad   { background-color: #c0563f; }
-.r-none  { background-color: var(--surface-2); color: var(--muted); }
-
-.grid-average .grid-cell {
-    outline: 2px solid var(--text);
-}
-
-.grid-legend {
-    margin-top: 10px;
-    color: var(--muted);
-    font-size: 0.8rem;
-}
-
-.grid-legend .grid-cell {
-    min-width: 34px;
-    margin: 0 4px 4px 10px;
-    padding: 2px 4px;
-}
-
 /* ---------- Season buttons + episode list ---------- */
 .season-buttons {
     display: flex;
@@ -827,10 +773,82 @@ a.grid-cell:hover {
     color: var(--text);
 }
 
+.episode {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+    background-color: var(--surface);
+    border: 1px solid #2f2820;
+    border-radius: var(--radius);
+}
+
+/* :target = the episode whose id is in the URL (#ep-s1e5) gets highlighted */
+.episode:target {
+    border-color: var(--potato);
+}
+
+.episode-number {
+    flex: 0 0 42px;
+    font-family: "Bebas Neue", Impact, sans-serif;
+    font-size: 1.6rem;
+    color: var(--potato);
+}
+
+.episode-still {
+    width: 160px;
+    border-radius: 8px;
+}
+
+.episode-body {
+    flex: 1;
+}
+
+.episode-body h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.episode-meta {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.episode-summary {
+    font-size: 0.88rem;
+    color: #d6ccbe;
+}
+
+.episode-rating {
+    flex: 0 0 160px;
+    text-align: right;
+}
+
+.episode-rating .rate-stars {
+    justify-content: flex-end;
+}
+
+.episode-score {
+    display: inline-block;
+    padding: 3px 10px;
+    margin-bottom: 6px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #14110d;
+}
+
+
 @media (max-width: 768px) {
-    .poster-row-item { flex-basis: 135px; }
+    .poster-row-item { flex-basis: 115px; }
     .filter-label    { width: 100%; }
     .hero-slide      { height: 300px; }
+    .episode         { flex-wrap: wrap; }
+    .episode-still   { display: none; }
+    .episode-rating  { flex-basis: 100%; text-align: left; }
+    .episode-rating .rate-stars { justify-content: flex-start; }
     .score-big       { font-size: 2.2rem; }
 }
 
@@ -914,107 +932,6 @@ a.grid-cell:hover {
 
 .ep-rate .rate-star {
     font-size: 1.25rem;
-}
-
-/* ---------- Episode table ---------- */
-.episode-table-wrap {
-    border: 1px solid #3a3128;
-    border-radius: var(--radius);
-}
-
-.episode-table {
-    margin-bottom: 0;
-    color: var(--text);
-    --bs-table-bg: var(--surface);
-    --bs-table-color: var(--text);
-    --bs-table-border-color: #2f2820;
-    --bs-table-hover-bg: var(--surface-2);
-}
-
-.episode-table thead th {
-    background-color: var(--surface-2);
-    color: var(--potato);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 12px;
-    white-space: nowrap;
-}
-
-.episode-table td {
-    padding: 12px;
-}
-
-.episode-table tbody tr:hover td {
-    background-color: var(--surface-2);
-}
-
-/* :target = the episode whose id is in the URL (#ep-s1e5) gets highlighted */
-.episode-table tr:target td {
-    background-color: #3a2c17;
-}
-
-.ep-number {
-    font-family: "Bebas Neue", Impact, sans-serif;
-    font-size: 1.6rem;
-    color: var(--potato);
-    text-align: center;
-    width: 50px;
-}
-
-.ep-flex {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-}
-
-.ep-still {
-    width: 120px;
-    border-radius: 6px;
-}
-
-.ep-summary {
-    margin: 4px 0 0;
-    font-size: 0.82rem;
-    color: var(--muted);
-}
-
-.ep-date {
-    color: var(--muted);
-    font-size: 0.85rem;
-    white-space: nowrap;
-}
-
-.ep-score {
-    width: 90px;
-}
-
-.score-pill {
-    display: inline-block;
-    min-width: 48px;
-    padding: 4px 8px;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: 600;
-    color: #14110d;
-}
-
-.mini-bar {
-    height: 4px;
-    margin-top: 6px;
-    background-color: #3a3128;
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.mini-bar div {
-    height: 100%;
-}
-
-.ep-rate {
-    width: 150px;
-    white-space: nowrap;
 }
 
 /* ---------- Written reviews ---------- */
@@ -1148,4 +1065,179 @@ a.grid-cell:hover {
 
 .star-choice.is-invalid label {
     color: var(--rotten);
+}
+
+/* ---------- Ratings at a Glance ---------- */
+.r-great { background-color: #3e9b4f; }
+.r-good  { background-color: #8cc152; }
+.r-ok    { background-color: #e0c048; }
+.r-meh   { background-color: #e08a3c; }
+.r-bad   { background-color: #c0563f; }
+.r-none  { background-color: var(--surface-2); color: var(--muted); }
+
+.r-text-great { color: #5cc46e; }
+.r-text-bad   { color: #e0705a; }
+
+.glance {
+    padding: 22px;
+    background: linear-gradient(160deg, #241e17 0%, var(--surface) 60%);
+    border: 1px solid #3a3128;
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.glance-head p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+}
+
+/* Best / average / lowest boxes */
+.glance-stat {
+    display: block;
+    height: 100%;
+    padding: 14px 16px;
+    background-color: rgba(15, 13, 11, 0.55);
+    border: 1px solid #3a3128;
+    border-radius: var(--radius);
+    color: var(--text);
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+a.glance-stat:hover {
+    border-color: var(--potato);
+    color: var(--text);
+    transform: translateY(-3px);
+}
+
+.glance-stat-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.glance-stat-value {
+    display: block;
+    font-family: "Bebas Neue", Impact, sans-serif;
+    font-size: 2.4rem;
+    line-height: 1.1;
+    color: var(--potato);
+}
+
+.glance-stat-name {
+    display: block;
+    font-size: 0.85rem;
+    color: #d6ccbe;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* The table itself */
+.glance-table-wrap {
+    overflow: auto;
+    max-height: 560px;
+    padding: 6px;
+    background-color: rgba(15, 13, 11, 0.55);
+    border: 1px solid #3a3128;
+    border-radius: var(--radius);
+}
+
+.glance-table {
+    border-collapse: separate;
+    border-spacing: 5px;
+    margin: 0 auto;
+}
+
+.glance-table thead th {
+    padding: 6px 4px 10px;
+    text-align: center;
+    border-bottom: 2px solid var(--potato);
+}
+
+.glance-table .corner {
+    color: var(--potato);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    vertical-align: bottom;
+}
+
+.season-name {
+    display: block;
+    font-family: "Bebas Neue", Impact, sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: var(--text);
+}
+
+.season-avg {
+    display: inline-block;
+    min-width: 44px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #14110d;
+}
+
+.glance-table tbody th {
+    padding-right: 8px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Light stripes on every second row */
+.glance-table tbody tr:nth-child(even) td {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.glance-table td {
+    padding: 0;
+    border-radius: 8px;
+}
+
+.glance-cell {
+    display: block;
+    min-width: 52px;
+    padding: 7px 4px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #14110d;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.18);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+a.glance-cell:hover {
+    color: #14110d;
+    transform: scale(1.15);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.glance-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.glance-legend i {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+    border-radius: 4px;
+    vertical-align: -2px;
 }
