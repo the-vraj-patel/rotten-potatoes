@@ -52,7 +52,7 @@ include "includes/header.php";
             <h3 class="search-group"><?php echo $categories[$category]; ?></h3>
             <div class="row g-4 mb-4">
                 <?php
-                $cardCols = "col-6 col-md-4 col-lg-3 col-xl-2";
+                $cardCols = "col-6 col-md-4 col-lg-3 col-xxl-2";
                 foreach (sortTitles($list, "rating") as $id => $movie) {
                     include "includes/movie-card.php";
                 }

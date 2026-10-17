@@ -51,10 +51,11 @@ if ($found) {
     $message = "";
     $userId  = currentUserId();
 
-    // Every form below needs a logged-in member and a working database
-    if (count($_POST) > 0 && !isLoggedIn()) {
+    // The star and wishlist forms need a logged-in member and a working database
+    $formSent = isset($_POST["stars"]) || isset($_POST["wishlist"]) || isset($_POST["review"]);
+    if ($formSent && !isLoggedIn()) {
         $message = "Please log in or register first.";
-    } elseif (count($_POST) > 0 && !$dbReady) {
+    } elseif ($formSent && !$dbReady) {
         $message = "The database is not set up yet. Open install.php first.";
     } else {
 

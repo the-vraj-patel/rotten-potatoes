@@ -61,7 +61,7 @@ include "includes/header.php";
     <?php if (count($wishlist) > 0) { ?>
         <div class="row g-4">
             <?php
-            $cardCols = "col-6 col-md-4 col-lg-3 col-xl-2";
+            $cardCols = "col-6 col-md-4 col-lg-3 col-xxl-2";
             foreach ($wishlist as $id => $movie) {
                 include "includes/movie-card.php";
             }

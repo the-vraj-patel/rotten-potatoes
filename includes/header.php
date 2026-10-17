@@ -14,6 +14,36 @@ if (!isset($returnHere)) { $returnHere = "index.php"; }
 // One-time message from the previous page, e.g. "Welcome back, Kevin!"
 $flash = takeFlash();
 
+// ---- Themes ----
+// The chosen theme is saved in a cookie for one year, so it is remembered next time
+$themes = array(
+    "classic" => "🥔 Classic",
+    "light"   => "☀️ Light",
+    "neon"    => "💜 Neon Nights",
+    "crimson" => "🔴 Crimson Cinema",
+    "matrix"  => "💚 Digital Rain",
+    "noir"    => "🎞️ Noir"
+);
+
+if (isset($_POST["theme"]) && isset($themes[$_POST["theme"]])) {
+    setcookie("theme", $_POST["theme"], time() + 60 * 60 * 24 * 365, "/");
+    // Load the same page again (so refreshing doesn't ask to send the form again)
+    header("Location: " . $_SERVER["REQUEST_URI"]);
+    exit;
+}
+
+$theme = "classic";
+if (isset($_COOKIE["theme"]) && isset($themes[$_COOKIE["theme"]])) {
+    $theme = $_COOKIE["theme"];
+}
+
+// The intro animation plays on the homepage once per visit (session)
+$showIntro = false;
+if ($activeType == "home" && !isset($_SESSION["intro_seen"])) {
+    $showIntro = true;
+    $_SESSION["intro_seen"] = true;
+}
+
 if (!isset($pageTitle))  { $pageTitle = "Rotten Potatoes"; }
 if (!isset($activeType)) { $activeType = ""; }
 
@@ -30,14 +60,52 @@ $searchText = isset($_GET["q"]) ? $_GET["q"] : "";
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Our own CSS (external stylesheet). Change ?v=4 to a new number after editing the CSS,
+    <!-- Our own CSS (external stylesheet). Change ?v=5 to a new number after editing the CSS,
          so browsers load the new file instead of an old saved copy. -->
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
-<body>
+<body class="theme-<?php echo $theme; ?>">
+
+<?php if ($showIntro) { ?>
+    <!-- Intro: the logo zooms in and fades away (CSS animation) -->
+    <div class="intro">
+        <div class="intro-logo">🥔 ROTTEN POTATOES</div>
+        <div class="intro-line"></div>
+    </div>
+<?php } ?>
+
+<!-- ===== Top strip: theme picker + account links ===== -->
+<div class="top-strip">
+    <div class="container top-strip-inner">
+        <!-- Theme picker: a Bootstrap dropdown with one small POST form -->
+        <div class="dropdown theme-picker">
+            <button class="btn btn-account dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">🎨 Theme</button>
+            <form method="post" class="dropdown-menu dropdown-menu-end">
+                <?php foreach ($themes as $key => $label) { ?>
+                    <button type="submit" name="theme" value="<?php echo $key; ?>"
+                            class="theme-option <?php if ($key == $theme) echo "active"; ?>">
+                        <span class="theme-dot dot-<?php echo $key; ?>"></span> <?php echo $label; ?>
+                    </button>
+                <?php } ?>
+            </form>
+        </div>
+
+        <!-- Account links: Register / Login for visitors, name + wishlist + logout for members -->
+        <div class="account-links">
+            <?php if (isLoggedIn()) { ?>
+                <a href="wishlist.php" class="btn btn-account">❤️ My Wishlist</a>
+                <span class="account-name">👤 <?php echo htmlspecialchars($_SESSION["user_name"]); ?></span>
+                <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
+            <?php } else { ?>
+                <a href="login.php?return=<?php echo urlencode($returnHere); ?>" class="btn btn-outline-light btn-sm">Login</a>
+                <a href="register.php?return=<?php echo urlencode($returnHere); ?>" class="btn btn-potato btn-sm">Register</a>
+            <?php } ?>
+        </div>
+    </div>
+</div>
 
 <!-- ===== Site title ===== -->
 <header class="site-header text-center">
@@ -77,17 +145,6 @@ $searchText = isset($_GET["q"]) ? $_GET["q"] : "";
                 <button class="btn btn-potato" type="submit">Search</button>
             </form>
 
-            <!-- Account links: Register / Login for visitors, name + wishlist + logout for members -->
-            <div class="account-links">
-                <?php if (isLoggedIn()) { ?>
-                    <a href="wishlist.php" class="btn btn-account">❤️ My Wishlist</a>
-                    <span class="account-name">👤 <?php echo htmlspecialchars($_SESSION["user_name"]); ?></span>
-                    <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
-                <?php } else { ?>
-                    <a href="login.php?return=<?php echo urlencode($returnHere); ?>" class="btn btn-outline-light btn-sm">Login</a>
-                    <a href="register.php?return=<?php echo urlencode($returnHere); ?>" class="btn btn-potato btn-sm">Register</a>
-                <?php } ?>
-            </div>
         </div>
     </div>
 </nav>

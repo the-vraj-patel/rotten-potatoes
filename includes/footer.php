@@ -15,6 +15,6 @@
 <!-- Bootstrap JS bundle (needed for the carousel and mobile menu) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Our own JavaScript (external script) -->
-<script src="js/script.js?v=3"></script>
+<script src="js/script.js?v=5"></script>
 </body>
 </html>

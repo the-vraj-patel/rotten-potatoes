@@ -116,7 +116,7 @@ include "includes/header.php";
     <?php if (count($pageItems) > 0) { ?>
         <div class="row g-4">
             <?php
-            $cardCols = "col-6 col-md-4 col-lg-3 col-xl-2";
+            $cardCols = "col-6 col-md-4 col-lg-3 col-xxl-2";
             foreach ($pageItems as $id => $movie) {
                 include "includes/movie-card.php";
             }

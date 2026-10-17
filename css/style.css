@@ -3,17 +3,180 @@
    ========================================================== */
 
 /* ---------- CSS Variables ---------- */
+/* ---------- Bigger view ----------
+   Everything is 25% bigger than the browser default (like zooming Chrome to 125%):
+   all rem sizes (text, Bootstrap buttons and spacing) grow with this one line,
+   and the px sizes in this file were made 25% bigger too. */
+html {
+    font-size: 125%;
+}
+
+/* ---------- CSS Variables: the "Classic" theme (default) ---------- */
 :root {
-    --bg:        #0f0d0b;   /* page background */
-    --surface:   #1c1814;   /* cards, boxes */
-    --surface-2: #2a241d;
-    --text:      #f3ede4;
-    --muted:     #a89d8f;
-    --potato:    #e0a548;   /* main accent (potato gold) */
-    --potato-dk: #b97e26;
-    --fresh:     #6fbf5a;
-    --rotten:    #c0563f;
-    --radius:    12px;
+    --bg:             #0f0d0b;   /* page background */
+    --surface:        #1c1814;   /* cards, boxes */
+    --surface-2:      #2a241d;
+    --surface-hi:     #241e17;   /* top of gradients */
+    --text:           #f3ede4;
+    --text-soft:      #d6ccbe;
+    --muted:          #a89d8f;
+    --potato:         #e0a548;   /* main accent colour */
+    --potato-dk:      #b97e26;
+    --accent-hi:      #f2c06f;
+    --on-accent:      #1a1208;   /* text on top of the accent colour */
+    --fresh:          #6fbf5a;
+    --rotten:         #c0563f;
+    --border:         #2f2820;
+    --border-2:       #3a3128;
+    --star-off:       #4a4036;
+    --glow:           rgba(224, 165, 72, 0.25);
+    --overlay:        rgba(15, 13, 11, 0.55);
+    --overlay-strong: rgba(15, 13, 11, 0.85);
+    --nav-bg:         rgba(28, 24, 20, 0.95);
+    --header-top:     #1f1912;
+    --title-font:     "Bebas Neue", Impact, sans-serif;
+    --title-glow:     none;      /* text-shadow of the big titles */
+    --card-glow:      0 10px 25px rgba(0, 0, 0, 0.5);
+    --radius:         15px;
+}
+
+/* ---------- Other themes ----------
+   Each theme only changes the variables. PHP puts the class on <body>,
+   e.g. <body class="theme-light">, and the whole site changes colour. */
+
+/* ☀️ Light */
+body.theme-light {
+    --bg:             #f6f3ee;
+    --surface:        #ffffff;
+    --surface-2:      #efe9e0;
+    --surface-hi:     #fbf8f3;
+    --text:           #1f1b16;
+    --text-soft:      #4a433b;
+    --muted:          #7a7066;
+    --potato:         #c47f12;
+    --potato-dk:      #9c640c;
+    --accent-hi:      #e09a2c;
+    --on-accent:      #ffffff;
+    --fresh:          #3c9a2e;
+    --rotten:         #c0452b;
+    --border:         #e4ddd2;
+    --border-2:       #d6cdbf;
+    --star-off:       #d9d0c4;
+    --glow:           rgba(196, 127, 18, 0.25);
+    --overlay:        rgba(255, 255, 255, 0.7);
+    --overlay-strong: rgba(255, 255, 255, 0.9);
+    --nav-bg:         rgba(255, 255, 255, 0.96);
+    --header-top:     #efe6d8;
+    --card-glow:      0 10px 25px rgba(60, 40, 10, 0.18);
+}
+
+/* 💜 Neon Nights: glowing pink and cyan, like a cyberpunk city */
+body.theme-neon {
+    --bg:             #07051a;
+    --surface:        #110c2e;
+    --surface-2:      #1b1545;
+    --surface-hi:     #1a1040;
+    --text:           #f4f0ff;
+    --text-soft:      #cfc7f5;
+    --muted:          #9289c9;
+    --potato:         #ff2bd6;
+    --potato-dk:      #c21aa3;
+    --accent-hi:      #29f0ff;
+    --on-accent:      #12001a;
+    --fresh:          #39ff9c;
+    --rotten:         #ff4d6d;
+    --border:         #2a2160;
+    --border-2:       #3b2f85;
+    --star-off:       #3b2f85;
+    --glow:           rgba(255, 43, 214, 0.35);
+    --overlay:        rgba(7, 5, 26, 0.6);
+    --overlay-strong: rgba(7, 5, 26, 0.85);
+    --nav-bg:         rgba(12, 8, 34, 0.95);
+    --header-top:     #1d0b3d;
+    --title-glow:     0 0 10px rgba(255, 43, 214, 0.9), 0 0 30px rgba(255, 43, 214, 0.5);
+    --card-glow:      0 0 18px rgba(41, 240, 255, 0.25);
+}
+
+/* 🔴 Crimson Cinema: black and red, like a streaming service */
+body.theme-crimson {
+    --bg:             #000000;
+    --surface:        #141414;
+    --surface-2:      #232323;
+    --surface-hi:     #1c1c1c;
+    --text:           #ffffff;
+    --text-soft:      #d2d2d2;
+    --muted:          #a3a3a3;
+    --potato:         #e50914;
+    --potato-dk:      #b20710;
+    --accent-hi:      #ff3b44;
+    --on-accent:      #ffffff;
+    --fresh:          #46d369;
+    --rotten:         #e50914;
+    --border:         #262626;
+    --border-2:       #333333;
+    --star-off:       #3d3d3d;
+    --glow:           rgba(229, 9, 20, 0.35);
+    --overlay:        rgba(0, 0, 0, 0.6);
+    --overlay-strong: rgba(0, 0, 0, 0.85);
+    --nav-bg:         rgba(0, 0, 0, 0.95);
+    --header-top:     #1a0002;
+    --title-glow:     0 4px 18px rgba(229, 9, 20, 0.55);
+    --radius:         6px;
+}
+
+/* 💚 Digital Rain: green code on black, like The Matrix */
+body.theme-matrix {
+    --bg:             #000a03;
+    --surface:        #04150a;
+    --surface-2:      #082414;
+    --surface-hi:     #062010;
+    --text:           #c9ffd9;
+    --text-soft:      #9be8b3;
+    --muted:          #4fa66c;
+    --potato:         #00ff66;
+    --potato-dk:      #00c94f;
+    --accent-hi:      #7dffad;
+    --on-accent:      #001a09;
+    --fresh:          #00ff66;
+    --rotten:         #ff5f56;
+    --border:         #0c3a1d;
+    --border-2:       #125a2c;
+    --star-off:       #125a2c;
+    --glow:           rgba(0, 255, 102, 0.3);
+    --overlay:        rgba(0, 10, 3, 0.65);
+    --overlay-strong: rgba(0, 10, 3, 0.85);
+    --nav-bg:         rgba(0, 12, 4, 0.95);
+    --header-top:     #021f0b;
+    --title-font:     "Share Tech Mono", "Courier New", monospace;
+    --title-glow:     0 0 8px rgba(0, 255, 102, 0.8);
+    --card-glow:      0 0 14px rgba(0, 255, 102, 0.15);
+    --radius:         4px;
+}
+
+/* 🎞️ Noir: black and white, like an old film */
+body.theme-noir {
+    --bg:             #0b0b0b;
+    --surface:        #161616;
+    --surface-2:      #222222;
+    --surface-hi:     #1c1c1c;
+    --text:           #f0f0f0;
+    --text-soft:      #cfcfcf;
+    --muted:          #8f8f8f;
+    --potato:         #f5f5f5;
+    --potato-dk:      #cccccc;
+    --accent-hi:      #ffffff;
+    --on-accent:      #111111;
+    --fresh:          #e0e0e0;
+    --rotten:         #777777;
+    --border:         #2a2a2a;
+    --border-2:       #3a3a3a;
+    --star-off:       #3a3a3a;
+    --glow:           rgba(255, 255, 255, 0.2);
+    --overlay:        rgba(0, 0, 0, 0.6);
+    --overlay-strong: rgba(0, 0, 0, 0.85);
+    --nav-bg:         rgba(11, 11, 11, 0.96);
+    --header-top:     #1a1a1a;
+    --title-font:     "Playfair Display", Georgia, serif;
 }
 
 /* ---------- Universal selector: reset ---------- */
@@ -49,20 +212,21 @@ img[src$=".jpg"] {
 
 /* ---------- Header / title ---------- */
 .site-header {
-    padding: 28px 16px 14px;
-    background: linear-gradient(180deg, #1f1912 0%, var(--bg) 100%);
+    padding: 35px 20px 18px;
+    background: linear-gradient(180deg, var(--header-top) 0%, var(--bg) 100%);
 }
 
 .brand {
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 3.6rem;
     letter-spacing: 3px;
     color: var(--potato);
     line-height: 1;
+    text-shadow: var(--title-glow);
 }
 
 .brand:hover {
-    color: #f2c06f;
+    color: var(--accent-hi);
 }
 
 .brand-icon {
@@ -72,7 +236,7 @@ img[src$=".jpg"] {
 
 .brand-tagline {
     color: var(--muted);
-    margin: 6px 0 0;
+    margin: 8px 0 0;
     font-size: 0.9rem;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -80,16 +244,17 @@ img[src$=".jpg"] {
 
 /* ---------- Navbar ---------- */
 .main-nav {
-    background-color: rgba(28, 24, 20, 0.95);
-    border-top: 1px solid #2f2820;
-    border-bottom: 1px solid #2f2820;
+    background-color: var(--nav-bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .main-nav .nav-link {
+    white-space: nowrap;
     color: var(--text);
     font-weight: 400;
-    padding: 8px 16px !important;
-    border-radius: 999px;
+    padding: 10px 20px !important;
+    border-radius: 1249px;
     transition: background-color 0.2s, color 0.2s;
 }
 
@@ -100,16 +265,16 @@ img[src$=".jpg"] {
 
 .main-nav .nav-link.active {
     background-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
     font-weight: 600;
 }
 
 .search-form .form-control {
     background-color: var(--surface-2);
-    border: 1px solid #3a3128;
+    border: 1px solid var(--border-2);
     color: var(--text);
-    border-radius: 999px;
-    min-width: 220px;
+    border-radius: 1249px;
+    min-width: 275px;
 }
 
 .search-form .form-control::placeholder {
@@ -118,7 +283,7 @@ img[src$=".jpg"] {
 
 .search-form .form-control:focus {
     border-color: var(--potato);
-    box-shadow: 0 0 0 3px rgba(224, 165, 72, 0.25);
+    box-shadow: 0 0 0 3px var(--glow);
 }
 
 .search-form .form-control.is-invalid {
@@ -128,33 +293,33 @@ img[src$=".jpg"] {
 /* ---------- Buttons ---------- */
 .btn-potato {
     background-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
     font-weight: 600;
     border: none;
-    border-radius: 999px;
-    padding: 8px 20px;
+    border-radius: 1249px;
+    padding: 10px 25px;
 }
 
 .btn-potato:hover {
     background-color: var(--potato-dk);
-    color: #1a1208;
+    color: var(--on-accent);
 }
 
 /* ---------- Hero slider ---------- */
 /* The slider sits inside a .container, so pictures are never stretched to full screen width */
 .hero-container {
-    padding-top: 24px;
+    padding-top: 30px;
 }
 
 .hero-container .carousel {
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 .hero-slide {
     position: relative;
-    height: 400px;
+    height: 500px;
     overflow: hidden;
 }
 
@@ -167,7 +332,7 @@ img[src$=".jpg"] {
 
 /* Book / anime slides: blurred cover as background */
 .hero-cover .hero-bg {
-    filter: blur(28px) brightness(0.55);
+    filter: blur(35px) brightness(0.55);
     transform: scale(1.2);
 }
 
@@ -178,9 +343,9 @@ img[src$=".jpg"] {
     top: 50%;
     transform: translateY(-50%) rotate(3deg);
     height: 78%;
-    max-height: 300px;               /* the cover pictures are small: don't blow them up */
-    border-radius: 8px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    max-height: 375px;               /* the cover pictures are small: don't blow them up */
+    border-radius: 10px;
+    box-shadow: 0 25px 62px rgba(0, 0, 0, 0.7);
 }
 
 /* Dark gradient so the text is readable on any picture */
@@ -197,7 +362,8 @@ img[src$=".jpg"] {
     z-index: 2;
     left: 8%;
     bottom: 22%;
-    max-width: 520px;
+    max-width: 650px;
+    color: #ffffff;
 }
 
 .carousel-item.active .hero-text {
@@ -213,17 +379,18 @@ img[src$=".jpg"] {
 }
 
 .hero-text h2 {
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 3.4rem;
     letter-spacing: 1px;
     line-height: 1;
-    margin: 8px 0 12px;
+    margin: 10px 0 15px;
+    text-shadow: var(--title-glow);
 }
 
 .hero-text p {
-    color: #ddd3c5;
+    color: #e6ddd0;
     font-size: 1.05rem;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .carousel-indicators {
@@ -231,8 +398,8 @@ img[src$=".jpg"] {
 }
 
 .carousel-indicators [data-bs-target] {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
 }
 
@@ -248,8 +415,8 @@ img[src$=".jpg"] {
 
 /* ---------- Sections ---------- */
 .section {
-    padding-top: 40px;
-    padding-bottom: 20px;
+    padding-top: 50px;
+    padding-bottom: 25px;
 }
 
 .section-head {
@@ -257,15 +424,16 @@ img[src$=".jpg"] {
     justify-content: space-between;
     align-items: baseline;
     border-left: 4px solid var(--potato);
-    padding-left: 12px;
-    margin-bottom: 24px;
+    padding-left: 15px;
+    margin-bottom: 30px;
 }
 
 .section-head h2 {
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 2.2rem;
     letter-spacing: 1px;
     margin: 0;
+    text-shadow: var(--title-glow);
 }
 
 /* ---------- Movie cards ---------- */
@@ -285,7 +453,7 @@ img[src$=".jpg"] {
     border-radius: var(--radius);
     overflow: hidden;
     aspect-ratio: 2 / 3;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--card-glow);
 }
 
 .poster-wrap img {
@@ -301,20 +469,20 @@ img[src$=".jpg"] {
 
 .rating-badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(15, 13, 11, 0.85);
+    top: 12px;
+    left: 12px;
+    background-color: var(--overlay-strong);
     color: var(--potato);
     font-weight: 600;
     font-size: 0.85rem;
-    padding: 3px 10px;
-    border-radius: 999px;
+    padding: 3px 12px;
+    border-radius: 1249px;
 }
 
 .card-title {
     font-size: 1rem;
     font-weight: 600;
-    margin: 12px 0 2px;
+    margin: 15px 0 2px;
 }
 
 .card-meta {
@@ -327,10 +495,10 @@ img[src$=".jpg"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 28px 10px;
+    gap: 8px;
+    padding: 35px 12px;
     background-color: var(--surface);
-    border: 1px solid #2f2820;
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     color: var(--text);
     font-weight: 600;
@@ -350,9 +518,9 @@ img[src$=".jpg"] {
 /* ---------- "Coming soon" / "not found" box ---------- */
 .coming-soon {
     background-color: var(--surface);
-    border: 1px dashed #3a3128;
+    border: 1px dashed var(--border-2);
     border-radius: var(--radius);
-    padding: 60px 20px;
+    padding: 75px 25px;
 }
 
 .coming-soon p {
@@ -364,7 +532,7 @@ img[src$=".jpg"] {
     position: absolute;
     left: 0;
     right: 0;
-    height: 460px;
+    height: 575px;
     background-size: cover;
     background-position: center top;
     opacity: 0.22;
@@ -375,15 +543,16 @@ img[src$=".jpg"] {
 
 .details {
     position: relative;
-    padding-top: 40px;
-    padding-bottom: 30px;
+    padding-top: 50px;
+    padding-bottom: 38px;
 }
 
 .details-title {
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 3.5rem;
     letter-spacing: 1px;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
+    text-shadow: var(--title-glow);
 }
 
 .details-year {
@@ -393,13 +562,13 @@ img[src$=".jpg"] {
 
 .details-poster {
     width: 100%;
-    max-width: 280px;                /* most posters are about 250-300px wide */
+    max-width: 350px;                /* most posters are about 250-300px wide */
     border-radius: var(--radius);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 .info-block {
-    margin-bottom: 22px;
+    margin-bottom: 28px;
 }
 
 .info-block h4 {
@@ -408,7 +577,7 @@ img[src$=".jpg"] {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .info-block p {
@@ -419,23 +588,23 @@ img[src$=".jpg"] {
     display: inline-block;
     border: 1px solid var(--potato);
     color: var(--potato);
-    padding: 3px 14px;
-    border-radius: 999px;
-    margin: 0 6px 6px 0;
+    padding: 3px 18px;
+    border-radius: 1249px;
+    margin: 0 8px 8px 0;
     font-size: 0.9rem;
 }
 
 .rating-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 18px;
 }
 
 .rating-box {
     background-color: var(--surface);
-    border: 1px solid #2f2820;
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 14px 22px;
+    padding: 18px 28px;
 }
 
 .rating-box p {
@@ -450,7 +619,7 @@ img[src$=".jpg"] {
 
 .star {
     font-size: 1.5rem;
-    color: #4a4036;
+    color: var(--star-off);
 }
 
 .star.on {
@@ -470,39 +639,39 @@ img[src$=".jpg"] {
 .overview {
     font-size: 1.05rem;
     line-height: 1.8;
-    max-width: 850px;
+    max-width: 1062px;
 }
 
 .watch-btn {
     display: inline-block;
     background-color: var(--surface-2);
     color: var(--text);
-    border: 1px solid #3a3128;
-    padding: 8px 18px;
-    border-radius: 8px;
-    margin: 0 8px 8px 0;
+    border: 1px solid var(--border-2);
+    padding: 10px 22px;
+    border-radius: 10px;
+    margin: 0 10px 10px 0;
     font-weight: 400;
     transition: background-color 0.2s, color 0.2s;
 }
 
 .watch-btn:hover {
     background-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
 }
 
 .trailer {
-    max-width: 900px;
+    max-width: 1125px;
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 /* ---------- Footer ---------- */
 .site-footer {
-    margin-top: 50px;
-    padding: 28px 16px;
+    margin-top: 62px;
+    padding: 35px 20px;
     background-color: var(--surface);
-    border-top: 1px solid #2f2820;
+    border-top: 1px solid var(--border);
     color: var(--muted);
 }
 
@@ -512,7 +681,7 @@ img[src$=".jpg"] {
 
 /* ---------- Animations ---------- */
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(38px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -525,13 +694,13 @@ img[src$=".jpg"] {
 /* ---------- Media queries (responsive design) ---------- */
 @media (max-width: 768px) {
     .brand          { font-size: 2.6rem; }
-    .hero-slide     { height: 380px; }
+    .hero-slide     { height: 475px; }
     .hero-text      { left: 6%; right: 6%; bottom: 16%; }
     .hero-text h2   { font-size: 2.6rem; }
     .hero-poster    { right: 6%; height: 60%; }
     .details-title  { font-size: 2.6rem; }
-    .details-poster { max-width: 260px; }
-    .search-form    { margin-top: 10px; }
+    .details-poster { max-width: 325px; }
+    .search-form    { margin-top: 12px; }
     .search-form .form-control { min-width: 0; }
 }
 
@@ -549,13 +718,13 @@ img[src$=".jpg"] {
 /* ---------- Horizontal poster rows on the homepage ---------- */
 .poster-row {
     display: flex;
-    gap: 18px;
+    gap: 22px;
     overflow-x: auto;
-    padding-bottom: 12px;
+    padding-bottom: 15px;
 }
 
 .poster-row-item {
-    flex: 0 0 140px;
+    flex: 0 0 175px;
 }
 
 .poster-row .card-title {
@@ -565,15 +734,15 @@ img[src$=".jpg"] {
 /* ---------- Extra card bits ---------- */
 .format-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
     background-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
     font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 999px;
+    padding: 2px 10px;
+    border-radius: 1249px;
 }
 
 .no-poster {
@@ -581,11 +750,11 @@ img[src$=".jpg"] {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
     width: 100%;
     height: 100%;
     aspect-ratio: 2 / 3;
-    padding: 12px;
+    padding: 15px;
     text-align: center;
     background-color: var(--surface-2);
     color: var(--muted);
@@ -599,22 +768,22 @@ img[src$=".jpg"] {
 /* ---------- Filter buttons ---------- */
 .filters {
     background-color: var(--surface);
-    border: 1px solid #2f2820;
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 18px 20px 10px;
-    margin-bottom: 30px;
+    padding: 22px 25px 12px;
+    margin-bottom: 38px;
 }
 
 .filter-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .filter-label {
-    width: 80px;
+    width: 100px;
     color: var(--potato);
     font-size: 0.75rem;
     font-weight: 600;
@@ -625,17 +794,17 @@ img[src$=".jpg"] {
 /* Every filter is a Bootstrap .btn with our own colours */
 .btn-filter {
     background-color: var(--surface-2);
-    border: 1px solid #3a3128;
+    border: 1px solid var(--border-2);
     color: var(--text);
-    border-radius: 8px;
-    padding: 6px 16px;
+    border-radius: 10px;
+    padding: 8px 20px;
     font-size: 0.9rem;
     font-weight: 400;
     transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
 }
 
 .btn-filter:hover {
-    background-color: #3a3128;
+    background-color: var(--border-2);
     border-color: var(--potato);
     color: var(--potato);
     transform: translateY(-2px);
@@ -644,13 +813,13 @@ img[src$=".jpg"] {
 .btn-filter.active {
     background-color: var(--potato);
     border-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
     font-weight: 600;
 }
 
 .btn-filter.big {
-    padding: 12px 24px;
-    margin: 0 8px 10px 0;
+    padding: 15px 30px;
+    margin: 0 10px 12px 0;
     font-size: 1rem;
     font-weight: 600;
     background-color: var(--surface);
@@ -658,29 +827,29 @@ img[src$=".jpg"] {
 
 .btn-filter.big:hover {
     background-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
 }
 
 /* ---------- Pagination ---------- */
 .potato-pages .page-link {
     background-color: var(--surface);
-    border-color: #2f2820;
+    border-color: var(--border);
     color: var(--text);
 }
 
 .potato-pages .page-item.active .page-link {
     background-color: var(--potato);
     border-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
 }
 
 /* ---------- Search groups ---------- */
 .search-group {
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 1.8rem;
     letter-spacing: 1px;
     color: var(--potato);
-    margin: 20px 0 16px;
+    margin: 25px 0 20px;
 }
 
 .search-group small {
@@ -691,19 +860,19 @@ img[src$=".jpg"] {
 
 /* ---------- Details page extras ---------- */
 .details-backdrop.from-poster {
-    filter: blur(30px);
+    filter: blur(38px);
     opacity: 0.3;
 }
 
 .details-original {
     color: var(--muted);
     font-style: italic;
-    margin: -18px 0 22px;
+    margin: -18px 0 28px;
 }
 
 a.genre-pill:hover {
     background-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
 }
 
 .subject-tag {
@@ -711,17 +880,17 @@ a.genre-pill:hover {
     background-color: var(--surface-2);
     color: var(--muted);
     font-size: 0.8rem;
-    padding: 3px 10px;
-    border-radius: 6px;
-    margin: 0 6px 6px 0;
+    padding: 3px 12px;
+    border-radius: 8px;
+    margin: 0 8px 8px 0;
 }
 
 .rate-message {
     background-color: var(--surface);
     border: 1px solid var(--fresh);
     border-radius: var(--radius);
-    padding: 10px 16px;
-    margin-bottom: 20px;
+    padding: 12px 20px;
+    margin-bottom: 25px;
 }
 
 /* ---------- "Rate it yourself" stars (each star is a submit button) ---------- */
@@ -735,7 +904,7 @@ a.genre-pill:hover {
     padding: 0 2px;
     font-size: 1.5rem;
     line-height: 1;
-    color: #4a4036;
+    color: var(--star-off);
     cursor: pointer;
 }
 
@@ -744,7 +913,7 @@ a.genre-pill:hover {
 }
 
 .rate-star.hover {
-    color: #f2c06f;
+    color: var(--accent-hi);
 }
 
 .rate-info {
@@ -761,8 +930,8 @@ a.genre-pill:hover {
 .season-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
+    gap: 8px;
+    margin-bottom: 18px;
 }
 
 .season-summary {
@@ -776,11 +945,11 @@ a.genre-pill:hover {
 .episode {
     display: flex;
     align-items: flex-start;
-    gap: 16px;
-    padding: 14px;
-    margin-bottom: 10px;
+    gap: 20px;
+    padding: 18px;
+    margin-bottom: 12px;
     background-color: var(--surface);
-    border: 1px solid #2f2820;
+    border: 1px solid var(--border);
     border-radius: var(--radius);
 }
 
@@ -790,15 +959,15 @@ a.genre-pill:hover {
 }
 
 .episode-number {
-    flex: 0 0 42px;
-    font-family: "Bebas Neue", Impact, sans-serif;
+    flex: 0 0 52px;
+    font-family: var(--title-font);
     font-size: 1.6rem;
     color: var(--potato);
 }
 
 .episode-still {
-    width: 160px;
-    border-radius: 8px;
+    width: 200px;
+    border-radius: 10px;
 }
 
 .episode-body {
@@ -818,11 +987,11 @@ a.genre-pill:hover {
 
 .episode-summary {
     font-size: 0.88rem;
-    color: #d6ccbe;
+    color: var(--text-soft);
 }
 
 .episode-rating {
-    flex: 0 0 160px;
+    flex: 0 0 200px;
     text-align: right;
 }
 
@@ -832,9 +1001,9 @@ a.genre-pill:hover {
 
 .episode-score {
     display: inline-block;
-    padding: 3px 10px;
-    margin-bottom: 6px;
-    border-radius: 999px;
+    padding: 3px 12px;
+    margin-bottom: 8px;
+    border-radius: 1249px;
     font-size: 0.85rem;
     font-weight: 600;
     color: #14110d;
@@ -842,9 +1011,9 @@ a.genre-pill:hover {
 
 
 @media (max-width: 768px) {
-    .poster-row-item { flex-basis: 115px; }
+    .poster-row-item { flex-basis: 144px; }
     .filter-label    { width: 100%; }
-    .hero-slide      { height: 300px; }
+    .hero-slide      { height: 375px; }
     .episode         { flex-wrap: wrap; }
     .episode-still   { display: none; }
     .episode-rating  { flex-basis: 100%; text-align: left; }
@@ -855,11 +1024,11 @@ a.genre-pill:hover {
 /* ---------- Score cards (details page) ---------- */
 .score-card {
     height: 100%;
-    padding: 18px 20px;
+    padding: 22px 25px;
     background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface) 100%);
-    border: 1px solid #3a3128;
+    border: 1px solid var(--border-2);
     border-radius: var(--radius);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
 .score-title,
@@ -874,7 +1043,7 @@ a.genre-pill:hover {
 }
 
 .score-big {
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 2.8rem;
     line-height: 1.1;
     color: var(--potato);
@@ -886,15 +1055,15 @@ a.genre-pill:hover {
 }
 
 .score-bar {
-    height: 8px;
-    margin-top: 10px;
-    background-color: #3a3128;
-    border-radius: 999px;
+    height: 10px;
+    margin-top: 12px;
+    background-color: var(--border-2);
+    border-radius: 1249px;
 }
 
 .score-bar .progress-bar {
     background-color: var(--potato);
-    border-radius: 999px;
+    border-radius: 1249px;
 }
 
 .meter-label {
@@ -918,7 +1087,7 @@ a.genre-pill:hover {
 .rate-card .rate-label {
     color: var(--potato);
     font-size: 0.9rem;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .rate-card .rate-star {
@@ -936,10 +1105,10 @@ a.genre-pill:hover {
 
 /* ---------- Written reviews ---------- */
 .review-card {
-    padding: 16px 18px;
-    margin-bottom: 14px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
     background-color: var(--surface);
-    border: 1px solid #2f2820;
+    border: 1px solid var(--border);
     border-left: 4px solid var(--potato);
     border-radius: var(--radius);
 }
@@ -947,25 +1116,25 @@ a.genre-pill:hover {
 .review-head {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 8px;
+    gap: 15px;
+    margin-bottom: 10px;
 }
 
 .review-avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
     font-weight: 600;
     font-size: 1.1rem;
 }
 
 .review-stars span {
-    color: #4a4036;
+    color: var(--star-off);
 }
 
 .review-stars span.on {
@@ -975,14 +1144,14 @@ a.genre-pill:hover {
 .review-stars .review-date {
     color: var(--muted);
     font-size: 0.8rem;
-    margin-left: 8px;
+    margin-left: 10px;
 }
 
 .sample-badge {
-    margin-left: 6px;
-    padding: 1px 8px;
+    margin-left: 8px;
+    padding: 1px 10px;
     border: 1px solid var(--muted);
-    border-radius: 999px;
+    border-radius: 1249px;
     color: var(--muted);
     font-size: 0.7rem;
 }
@@ -993,10 +1162,10 @@ a.genre-pill:hover {
 }
 
 .review-empty {
-    padding: 30px;
+    padding: 38px;
     text-align: center;
     background-color: var(--surface);
-    border: 1px dashed #3a3128;
+    border: 1px dashed var(--border-2);
     border-radius: var(--radius);
     color: var(--muted);
 }
@@ -1006,9 +1175,9 @@ a.genre-pill:hover {
 }
 
 .review-form {
-    padding: 20px;
+    padding: 25px;
     background-color: var(--surface);
-    border: 1px solid #3a3128;
+    border: 1px solid var(--border-2);
     border-radius: var(--radius);
 }
 
@@ -1019,13 +1188,13 @@ a.genre-pill:hover {
 
 .review-form .form-control {
     background-color: var(--surface-2);
-    border: 1px solid #3a3128;
+    border: 1px solid var(--border-2);
     color: var(--text);
 }
 
 .review-form .form-control:focus {
     border-color: var(--potato);
-    box-shadow: 0 0 0 3px rgba(224, 165, 72, 0.25);
+    box-shadow: 0 0 0 3px var(--glow);
 }
 
 .review-form .form-control.is-invalid {
@@ -1047,7 +1216,7 @@ a.genre-pill:hover {
 
 .star-choice label {
     font-size: 2rem;
-    color: #4a4036;
+    color: var(--star-off);
     cursor: pointer;
     padding: 0 3px;
 }
@@ -1074,26 +1243,26 @@ a.genre-pill:hover {
 .r-text-bad   { color: #e0705a; }
 
 .glance {
-    padding: 22px;
-    background: linear-gradient(160deg, #241e17 0%, var(--surface) 60%);
-    border: 1px solid #3a3128;
-    border-radius: 16px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    padding: 28px;
+    background: linear-gradient(160deg, var(--surface-hi) 0%, var(--surface) 60%);
+    border: 1px solid var(--border-2);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
 }
 
 .glance-head p {
     color: var(--muted);
     font-size: 0.85rem;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 /* Best / average / lowest boxes */
 .glance-stat {
     display: block;
     height: 100%;
-    padding: 14px 16px;
-    background-color: rgba(15, 13, 11, 0.55);
-    border: 1px solid #3a3128;
+    padding: 18px 20px;
+    background-color: var(--overlay);
+    border: 1px solid var(--border-2);
     border-radius: var(--radius);
     color: var(--text);
     transition: border-color 0.2s, transform 0.2s;
@@ -1116,7 +1285,7 @@ a.glance-stat:hover {
 
 .glance-stat-value {
     display: block;
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 2.4rem;
     line-height: 1.1;
     color: var(--potato);
@@ -1125,7 +1294,7 @@ a.glance-stat:hover {
 .glance-stat-name {
     display: block;
     font-size: 0.85rem;
-    color: #d6ccbe;
+    color: var(--text-soft);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1134,10 +1303,10 @@ a.glance-stat:hover {
 /* The table itself */
 .glance-table-wrap {
     overflow: auto;
-    max-height: 560px;
-    padding: 6px;
-    background-color: rgba(15, 13, 11, 0.55);
-    border: 1px solid #3a3128;
+    max-height: 700px;
+    padding: 8px;
+    background-color: var(--overlay);
+    border: 1px solid var(--border-2);
     border-radius: var(--radius);
 }
 
@@ -1148,7 +1317,7 @@ a.glance-stat:hover {
 }
 
 .glance-table thead th {
-    padding: 6px 4px 10px;
+    padding: 8px 4px 12px;
     text-align: center;
     border-bottom: 2px solid var(--potato);
 }
@@ -1163,7 +1332,7 @@ a.glance-stat:hover {
 
 .season-name {
     display: block;
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 1.3rem;
     letter-spacing: 1px;
     color: var(--text);
@@ -1171,16 +1340,16 @@ a.glance-stat:hover {
 
 .season-avg {
     display: inline-block;
-    min-width: 44px;
-    padding: 2px 6px;
-    border-radius: 999px;
+    min-width: 55px;
+    padding: 2px 8px;
+    border-radius: 1249px;
     font-size: 0.75rem;
     font-weight: 600;
     color: #14110d;
 }
 
 .glance-table tbody th {
-    padding-right: 8px;
+    padding-right: 10px;
     color: var(--muted);
     font-size: 0.75rem;
     font-weight: 600;
@@ -1195,14 +1364,14 @@ a.glance-stat:hover {
 
 .glance-table td {
     padding: 0;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .glance-cell {
     display: block;
-    min-width: 52px;
-    padding: 7px 4px;
-    border-radius: 8px;
+    min-width: 65px;
+    padding: 9px 4px;
+    border-radius: 10px;
     text-align: center;
     font-size: 0.85rem;
     font-weight: 600;
@@ -1214,7 +1383,7 @@ a.glance-stat:hover {
 a.glance-cell:hover {
     color: #14110d;
     transform: scale(1.15);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
     position: relative;
     z-index: 1;
 }
@@ -1222,35 +1391,53 @@ a.glance-cell:hover {
 .glance-legend {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px 18px;
-    margin-top: 14px;
+    gap: 8px 22px;
+    margin-top: 18px;
     color: var(--muted);
     font-size: 0.8rem;
 }
 
 .glance-legend i {
     display: inline-block;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     margin-right: 4px;
     border-radius: 4px;
     vertical-align: -2px;
 }
 
-/* ---------- Account: navbar links, login/register boxes, profile ---------- */
+/* ---------- Account: top strip, login/register boxes, profile ---------- */
+
+/* Slim strip above the logo with the theme picker and Login / Register */
+.top-strip {
+    background-color: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+}
+
+.top-strip-inner {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.top-strip .btn {
+    font-size: 0.75rem;
+}
 .account-links {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-left: 14px;
+    gap: 10px;
+    margin-left: 18px;
 }
 
 .btn-account {
     background-color: var(--surface-2);
-    border: 1px solid #3a3128;
+    border: 1px solid var(--border-2);
     color: var(--text);
-    border-radius: 999px;
-    padding: 5px 14px;
+    border-radius: 1249px;
+    padding: 5px 18px;
     font-size: 0.85rem;
 }
 
@@ -1267,8 +1454,8 @@ a.glance-cell:hover {
 }
 
 .flash-message {
-    margin-top: 20px;
-    padding: 12px 18px;
+    margin-top: 25px;
+    padding: 15px 22px;
     background-color: var(--surface);
     border: 1px solid var(--fresh);
     border-left: 5px solid var(--fresh);
@@ -1276,31 +1463,32 @@ a.glance-cell:hover {
 }
 
 .auth-box {
-    max-width: 460px;
-    margin: 20px auto;
-    padding: 30px;
+    max-width: 575px;
+    margin: 25px auto;
+    padding: 38px;
     background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface) 100%);
-    border: 1px solid #3a3128;
-    border-radius: 16px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    border: 1px solid var(--border-2);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
 }
 
 .auth-title {
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 2.4rem;
     letter-spacing: 1px;
     color: var(--potato);
+    text-shadow: var(--title-glow);
 }
 
 .auth-box .form-control {
     background-color: var(--bg);
-    border: 1px solid #3a3128;
+    border: 1px solid var(--border-2);
     color: var(--text);
 }
 
 .auth-box .form-control:focus {
     border-color: var(--potato);
-    box-shadow: 0 0 0 3px rgba(224, 165, 72, 0.25);
+    box-shadow: 0 0 0 3px var(--glow);
 }
 
 .auth-box .form-control.is-invalid {
@@ -1308,16 +1496,16 @@ a.glance-cell:hover {
 }
 
 .auth-switch {
-    margin: 18px 0 0;
+    margin: 22px 0 0;
     text-align: center;
     color: var(--muted);
 }
 
 .form-error {
-    padding: 8px 12px;
+    padding: 10px 15px;
     background-color: rgba(192, 86, 63, 0.15);
     border: 1px solid var(--rotten);
-    border-radius: 8px;
+    border-radius: 10px;
     color: #f0a090;
 }
 
@@ -1327,7 +1515,7 @@ a.glance-cell:hover {
 }
 
 .install-steps li {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 /* Stars shown to visitors are links to the login page */
@@ -1338,15 +1526,15 @@ a.rate-star {
 
 /* ---------- Wishlist button + profile ---------- */
 .wishlist-form {
-    margin: -10px 0 24px;
+    margin: -10px 0 30px;
 }
 
 .btn-wish {
     background-color: var(--surface-2);
-    border: 1px solid #3a3128;
+    border: 1px solid var(--border-2);
     color: var(--text);
-    border-radius: 999px;
-    padding: 7px 18px;
+    border-radius: 1249px;
+    padding: 9px 22px;
 }
 
 .btn-wish:hover,
@@ -1359,29 +1547,29 @@ a.rate-star {
 .profile-card {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 24px;
-    margin-bottom: 36px;
+    gap: 25px;
+    padding: 30px;
+    margin-bottom: 45px;
     background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface) 100%);
-    border: 1px solid #3a3128;
-    border-radius: 16px;
+    border: 1px solid var(--border-2);
+    border-radius: 20px;
 }
 
 .profile-avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 72px;
-    height: 72px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     background-color: var(--potato);
-    color: #1a1208;
+    color: var(--on-accent);
     font-size: 2rem;
     font-weight: 600;
 }
 
 .profile-card h2 {
-    font-family: "Bebas Neue", Impact, sans-serif;
+    font-family: var(--title-font);
     font-size: 2.2rem;
     letter-spacing: 1px;
     margin: 0;
@@ -1397,5 +1585,178 @@ a.rate-star {
 }
 
 @media (max-width: 768px) {
-    .account-links { margin: 12px 0 6px; flex-wrap: wrap; }
+    .top-strip-inner { justify-content: center; flex-wrap: wrap; }
+}
+
+/* ==========================================================
+   Theme extras, theme picker and intro animation
+   ========================================================== */
+
+/* Light theme: Bootstrap's white outline buttons and the white menu icon need dark colours */
+.theme-light .btn-outline-light {
+    color: var(--text);
+    border-color: var(--border-2);
+}
+
+.theme-light .btn-outline-light:hover {
+    background-color: var(--surface-2);
+    color: var(--text);
+}
+
+.theme-light .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.theme-light .carousel-indicators [data-bs-target] {
+    background-color: #ffffff;
+}
+
+/* Neon: everything glows a little */
+.theme-neon .main-nav {
+    border-bottom: 1px solid var(--potato);
+    box-shadow: 0 0 18px rgba(255, 43, 214, 0.35);
+}
+
+.theme-neon .btn-potato {
+    box-shadow: 0 0 14px rgba(255, 43, 214, 0.7);
+}
+
+.theme-neon .movie-card:hover .poster-wrap {
+    box-shadow: 0 0 25px rgba(41, 240, 255, 0.7);
+}
+
+.theme-neon .rating-badge {
+    color: var(--accent-hi);
+}
+
+/* Crimson: bold red logo and sharper corners */
+.theme-crimson .brand {
+    letter-spacing: 5px;
+}
+
+.theme-crimson .movie-card:hover {
+    transform: scale(1.06);
+}
+
+/* Digital Rain: green scan lines over the header */
+.theme-matrix .site-header {
+    background-image: repeating-linear-gradient(0deg, rgba(0, 255, 102, 0.06) 0px, rgba(0, 255, 102, 0.06) 2px, transparent 2px, transparent 5px);
+}
+
+.theme-matrix body,
+.theme-matrix {
+    font-family: "Share Tech Mono", "Courier New", monospace;
+}
+
+/* Noir: pictures in black and white, colour comes back on hover */
+.theme-noir img,
+.theme-noir .hero-bg,
+.theme-noir .details-backdrop {
+    filter: grayscale(1) contrast(1.1);
+}
+
+.theme-noir .movie-card:hover img {
+    filter: none;
+}
+
+.theme-noir .r-great, .theme-noir .r-good, .theme-noir .r-ok,
+.theme-noir .r-meh, .theme-noir .r-bad {
+    filter: grayscale(0.6);
+}
+
+/* ---------- Theme picker (Bootstrap dropdown in the navbar) ---------- */
+.theme-picker .dropdown-menu {
+    background-color: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius);
+    padding: 8px;
+    min-width: 240px;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 12px;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--text);
+    text-align: left;
+}
+
+.theme-option:hover {
+    background-color: var(--surface-2);
+}
+
+.theme-option.active {
+    border-color: var(--potato);
+}
+
+/* Small colour circle showing each theme's colours */
+.theme-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.dot-classic { background: linear-gradient(135deg, #0f0d0b 50%, #e0a548 50%); }
+.dot-light   { background: linear-gradient(135deg, #f6f3ee 50%, #c47f12 50%); }
+.dot-neon    { background: linear-gradient(135deg, #ff2bd6 50%, #29f0ff 50%); }
+.dot-crimson { background: linear-gradient(135deg, #000000 50%, #e50914 50%); }
+.dot-matrix  { background: linear-gradient(135deg, #000a03 50%, #00ff66 50%); }
+.dot-noir    { background: linear-gradient(135deg, #0b0b0b 50%, #f5f5f5 50%); }
+
+/* ---------- Intro animation (homepage, once per visit) ----------
+   A full-screen layer with the logo: it zooms in, glows, then the whole layer fades away.
+   Only CSS @keyframes are used; "forwards" keeps the last frame (invisible). */
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg);
+    animation: introFade 0.6s ease-in 2.2s forwards;
+    pointer-events: none;
+}
+
+.intro-logo {
+    font-family: var(--title-font);
+    font-size: 5rem;
+    letter-spacing: 6px;
+    color: var(--potato);
+    animation: introZoom 2.2s ease-out forwards;
+}
+
+.intro-line {
+    width: 0;
+    height: 5px;
+    margin-top: 10px;
+    background-color: var(--potato);
+    box-shadow: 0 0 20px var(--potato);
+    animation: introLine 1.4s ease-out 0.6s forwards;
+}
+
+@keyframes introZoom {
+    0%   { opacity: 0; transform: scale(2.4); letter-spacing: 40px; filter: blur(12px); }
+    45%  { opacity: 1; transform: scale(1);   letter-spacing: 6px;  filter: blur(0); text-shadow: 0 0 40px var(--potato); }
+    100% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 10px var(--potato); }
+}
+
+@keyframes introLine {
+    from { width: 0; }
+    to   { width: 320px; }
+}
+
+@keyframes introFade {
+    to { opacity: 0; visibility: hidden; }
+}
+
+@media (max-width: 768px) {
+    .intro-logo { font-size: 3rem; }
 }
