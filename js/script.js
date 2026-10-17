@@ -26,14 +26,10 @@ $(document).ready(function () {
         $(this).hide().delay(index * 60).fadeIn(400);
     });
 
-    // 3. Review form validation: name, stars and at least 10 characters of text
+    // 3. Review form validation: stars and at least 10 characters of text
     $("#reviewForm").on("submit", function (event) {
         var ok = true;
 
-        if ($("#reviewName").val().trim() === "") {
-            $("#reviewName").addClass("is-invalid");
-            ok = false;
-        }
         if ($("input[name='review_stars']:checked").length === 0) {
             $(".star-choice").addClass("is-invalid");
             ok = false;
@@ -49,14 +45,41 @@ $(document).ready(function () {
     });
 
     // Remove the red colour again when the visitor fixes a field
-    $("#reviewName, #reviewText").on("input", function () {
+    $("#reviewText").on("input", function () {
         $(this).removeClass("is-invalid");
     });
     $("input[name='review_stars']").on("change", function () {
         $(".star-choice").removeClass("is-invalid");
     });
 
-    // 4. Star rating: light up the stars up to the one under the mouse
+    // 4. Register form validation: name, email, password length, both passwords the same
+    $("#registerForm").on("submit", function (event) {
+        var ok = true;
+        $("#registerForm .form-control").removeClass("is-invalid");
+
+        if ($("#regName").val().trim() === "") {
+            $("#regName").addClass("is-invalid");
+            ok = false;
+        }
+        if ($("#regEmail").val().indexOf("@") === -1) {
+            $("#regEmail").addClass("is-invalid");
+            ok = false;
+        }
+        if ($("#regPassword").val().length < 6) {
+            $("#regPassword").addClass("is-invalid");
+            ok = false;
+        }
+        if ($("#regConfirm").val() !== $("#regPassword").val()) {
+            $("#regConfirm").addClass("is-invalid");
+            ok = false;
+        }
+
+        if (!ok) {
+            event.preventDefault();
+        }
+    });
+
+    // 5. Star rating: light up the stars up to the one under the mouse
     $(".rate-star").on("mouseenter", function () {
         $(this).prevAll(".rate-star").addBack().addClass("hover");
     });

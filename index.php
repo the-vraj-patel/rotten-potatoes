@@ -2,6 +2,7 @@
 $pageTitle  = "Rotten Potatoes - Home";
 $activeType = "home";
 include "includes/header.php";
+include_once "includes/db.php";
 
 // The rows of posters on the homepage: heading, list of titles, "See all" link
 $rows = array(
@@ -24,6 +25,17 @@ $rows = array(
           "items"   => filterTitles($books, "", "", "", "new"),
           "link"    => "category.php?type=books&list=new"),
 );
+
+// Logged-in members with a wishlist get a "Recommended for You" row first
+if (isLoggedIn() && $dbReady) {
+    $wishIds = getWishlist($conn, currentUserId());
+    if (count($wishIds) > 0) {
+        $forYou = array("heading" => "Recommended for You",
+                        "items"   => recommendTitles($wishIds, 12),
+                        "link"    => "wishlist.php");
+        array_unshift($rows, $forYou);          // put it at the start of the list
+    }
+}
 ?>
 
 <!-- ===== Image slider (Bootstrap Carousel, changes every 4 seconds) ===== -->

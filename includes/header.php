@@ -4,8 +4,15 @@
  * Before including this file, a page can set:
  *   $pageTitle  : text for the browser tab
  *   $activeType : which category link to highlight (e.g. "movies")
+ *   $returnHere : page to come back to after login/register (optional)
  */
+include_once "auth.php";
 include_once "data.php";
+
+if (!isset($returnHere)) { $returnHere = "index.php"; }
+
+// One-time message from the previous page, e.g. "Welcome back, Kevin!"
+$flash = takeFlash();
 
 if (!isset($pageTitle))  { $pageTitle = "Rotten Potatoes"; }
 if (!isset($activeType)) { $activeType = ""; }
@@ -26,9 +33,9 @@ $searchText = isset($_GET["q"]) ? $_GET["q"] : "";
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Our own CSS (external stylesheet). Change ?v=3 to a new number after editing the CSS,
+    <!-- Our own CSS (external stylesheet). Change ?v=4 to a new number after editing the CSS,
          so browsers load the new file instead of an old saved copy. -->
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -69,8 +76,26 @@ $searchText = isset($_GET["q"]) ? $_GET["q"] : "";
                        value="<?php echo htmlspecialchars($searchText); ?>">
                 <button class="btn btn-potato" type="submit">Search</button>
             </form>
+
+            <!-- Account links: Register / Login for visitors, name + wishlist + logout for members -->
+            <div class="account-links">
+                <?php if (isLoggedIn()) { ?>
+                    <a href="wishlist.php" class="btn btn-account">❤️ My Wishlist</a>
+                    <span class="account-name">👤 <?php echo htmlspecialchars($_SESSION["user_name"]); ?></span>
+                    <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
+                <?php } else { ?>
+                    <a href="login.php?return=<?php echo urlencode($returnHere); ?>" class="btn btn-outline-light btn-sm">Login</a>
+                    <a href="register.php?return=<?php echo urlencode($returnHere); ?>" class="btn btn-potato btn-sm">Register</a>
+                <?php } ?>
+            </div>
         </div>
     </div>
 </nav>
 
 <main>
+
+<?php if ($flash != "") { ?>
+    <div class="container">
+        <div class="flash-message"><?php echo htmlspecialchars($flash); ?></div>
+    </div>
+<?php } ?>

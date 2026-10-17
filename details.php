@@ -4,10 +4,11 @@
  * The id comes from the query string, e.g. details.php?id=inception
  * For shows, the season too: details.php?id=attack-on-titan&season=2
  *
- * Visitors rate with the star forms on this page. The form is sent back to this
- * same page with POST, and the rating is saved in MySQL before the page is shown.
+ * Members rate, review and add to their wishlist with the forms on this page.
+ * The forms are sent back to this same page with POST and saved in MySQL
+ * before the page is shown. Visitors who are not logged in see Login/Register links.
  */
-session_start();                    // the session id tells us which visitor is rating
+include_once "includes/auth.php";
 include_once "includes/data.php";
 include_once "includes/db.php";
 include_once "includes/rating-form.php";
@@ -41,64 +42,85 @@ if ($found) {
         }
     }
 
-    // ---- Form processing: a visitor clicked a star ----
-    $message = "";
-    if (isset($_POST["stars"])) {
-        $stars   = (int) $_POST["stars"];
-        $episode = isset($_POST["episode"]) ? $_POST["episode"] : "";
+    // Link back to this page, used after login/register
+    $returnHere = "details.php?id=" . $id;
+    if ($season > 0) {
+        $returnHere .= "&season=" . $season;
+    }
 
-        // The episode must be "" (whole title) or a real episode of this show
-        $validEpisode = ($episode == "");
-        foreach ($seasons as $s) {
-            foreach ($s["episodes"] as $ep) {
-                if ($ep["id"] == $episode) {
-                    $validEpisode = true;
+    $message = "";
+    $userId  = currentUserId();
+
+    // Every form below needs a logged-in member and a working database
+    if (count($_POST) > 0 && !isLoggedIn()) {
+        $message = "Please log in or register first.";
+    } elseif (count($_POST) > 0 && !$dbReady) {
+        $message = "The database is not set up yet. Open install.php first.";
+    } else {
+
+        // ---- Form processing: a member clicked a star ----
+        if (isset($_POST["stars"])) {
+            $stars   = (int) $_POST["stars"];
+            $episode = isset($_POST["episode"]) ? $_POST["episode"] : "";
+
+            // The episode must be "" (whole title) or a real episode of this show
+            $validEpisode = ($episode == "");
+            foreach ($seasons as $s) {
+                foreach ($s["episodes"] as $ep) {
+                    if ($ep["id"] == $episode) {
+                        $validEpisode = true;
+                    }
                 }
+            }
+
+            if ($stars < 1 || $stars > 5 || !$validEpisode) {
+                $message = "That rating was not valid.";
+            } else {
+                saveRating($conn, $userId, $id, $episode, $stars);
+                $message = "Thanks! Your rating was saved.";
             }
         }
 
-        if (!$dbReady) {
-            $message = "Ratings are not available: start MySQL and import database.sql first.";
-        } elseif ($stars < 1 || $stars > 5 || !$validEpisode) {
-            $message = "That rating was not valid.";
-        } else {
-            saveRating($conn, $id, $episode, $stars, session_id());
-            $message = "Thanks! Your rating was saved.";
+        // ---- Form processing: wishlist button ----
+        if (isset($_POST["wishlist"])) {
+            if ($_POST["wishlist"] == "add") {
+                addToWishlist($conn, $userId, $id);
+                $message = "Added to your wishlist ❤️";
+            } else {
+                removeFromWishlist($conn, $userId, $id);
+                $message = "Removed from your wishlist.";
+            }
         }
     }
 
-    // ---- Form processing: a visitor wrote a review ----
+    // ---- Form processing: a member wrote a review ----
     $reviewError = "";
-    $reviewName  = "";
     $reviewText  = "";
-    if (isset($_POST["review"])) {
-        $reviewName  = trim($_POST["name"]);
+    if (isset($_POST["review"]) && isLoggedIn() && $dbReady) {
         $reviewText  = trim($_POST["review"]);
         $reviewStars = isset($_POST["review_stars"]) ? (int) $_POST["review_stars"] : 0;
 
-        if (!$dbReady) {
-            $reviewError = "Reviews are not available: start MySQL and import database.sql first.";
-        } elseif ($reviewName == "" || strlen($reviewName) > 50) {
-            $reviewError = "Please enter your name (up to 50 characters).";
-        } elseif ($reviewStars < 1 || $reviewStars > 5) {
+        if ($reviewStars < 1 || $reviewStars > 5) {
             $reviewError = "Please choose how many stars you give.";
         } elseif (strlen($reviewText) < 10 || strlen($reviewText) > 1000) {
             $reviewError = "Your review should be between 10 and 1000 characters.";
-        } elseif (!saveReview($conn, $id, $reviewName, $reviewStars, $reviewText)) {
-            $reviewError = "Reviews are not set up yet: import database.sql again in phpMyAdmin.";
         } else {
+            saveReview($conn, $userId, $_SESSION["user_name"], $id, $reviewStars, $reviewText);
             $message = "Thanks! Your review was posted.";
-            $reviewName = "";
             $reviewText = "";
         }
     }
 
-    // Visitor ratings and written reviews for this title
-    $ratings = array();
-    $reviews = array();
+    // Ratings, reviews and wishlist status from the database
+    $ratings    = array();
+    $reviews    = array();
+    $inWishlist = false;
     if ($dbReady) {
-        $ratings = getRatings($conn, $id, session_id());
+        $ratings = getRatings($conn, $id, $userId);
         $reviews = getReviews($conn, $id);
+        if (isLoggedIn()) {
+            $inWishlist = in_array($id, getWishlist($conn, $userId));
+        }
     }
 
     // Text above the stars: "Rate this movie", "Rate this show", ...
@@ -165,6 +187,19 @@ include "includes/header.php";
         </h1>
         <?php if (isset($movie["original"]) && $movie["original"] != "") { ?>
             <p class="details-original"><?php echo htmlspecialchars($movie["original"]); ?></p>
+        <?php } ?>
+
+        <!-- Wishlist button (a small POST form) -->
+        <?php if (isLoggedIn()) { ?>
+            <form method="post" action="<?php echo $returnHere; ?>" class="wishlist-form">
+                <?php if ($inWishlist) { ?>
+                    <button type="submit" name="wishlist" value="remove" class="btn btn-wish on">❤️ In your wishlist &middot; Remove</button>
+                <?php } else { ?>
+                    <button type="submit" name="wishlist" value="add" class="btn btn-wish">🤍 Add to wishlist</button>
+                <?php } ?>
+            </form>
+        <?php } else { ?>
+            <a href="login.php?return=<?php echo urlencode($returnHere); ?>" class="btn btn-wish wishlist-form">🤍 Log in to add to your wishlist</a>
         <?php } ?>
 
         <div class="row g-4">

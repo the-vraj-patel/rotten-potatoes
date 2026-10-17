@@ -3,6 +3,7 @@
  * rating-form.php — the "rate it yourself" stars.
  * Each star is a submit button of a normal HTML form (method POST).
  * details.php receives the form, saves the rating in MySQL and shows the page again.
+ * Visitors who are not logged in see the same stars, but as links to the login page.
  */
 
 // $id      : title id
@@ -28,6 +29,30 @@ function ratingForm($id, $season, $episode, $ratings, $label) {
         $action .= "#rating";
     }
 
+    // Not logged in: the stars link to the login page, which brings the visitor back here
+    if (!isLoggedIn()) {
+        $back = "details.php?id=" . $id;
+        if ($season > 0) {
+            $back .= "&season=" . $season;
+        }
+        $html = '<div class="rate-form">';
+        if ($label != "") {
+            $html .= '<span class="rate-label">' . $label . '</span>';
+        }
+        $html .= '<div class="rate-stars">';
+        for ($i = 1; $i <= 5; $i++) {
+            $html .= '<a href="login.php?return=' . urlencode($back) . '" class="rate-star" title="Log in to rate">★</a>';
+        }
+        $html .= '</div>';
+        if ($data["count"] > 0) {
+            $html .= '<span class="rate-info">Members: ' . $data["avg"] . '★ (' . $data["count"] . ')</span>';
+        } elseif ($label != "") {
+            $html .= '<span class="rate-info">Log in to rate</span>';
+        }
+        $html .= '</div>';
+        return $html;
+    }
+
     $html = '<form method="post" action="' . $action . '" class="rate-form">';
     if ($label != "") {
         $html .= '<span class="rate-label">' . $label . '</span>';
@@ -47,7 +72,7 @@ function ratingForm($id, $season, $episode, $ratings, $label) {
     if ($data["mine"] > 0) {
         $html .= '<span class="rate-info">You gave ' . $data["mine"] . '★ &middot; average ' . $data["avg"] . '★ (' . $data["count"] . ')</span>';
     } elseif ($data["count"] > 0) {
-        $html .= '<span class="rate-info">Visitors: ' . $data["avg"] . '★ (' . $data["count"] . ')</span>';
+        $html .= '<span class="rate-info">Members: ' . $data["avg"] . '★ (' . $data["count"] . ')</span>';
     }
     $html .= '</form>';
     return $html;

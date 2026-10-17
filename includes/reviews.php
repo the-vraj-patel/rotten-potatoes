@@ -2,8 +2,9 @@
 /*
  * reviews.php — written reviews of a title + the form to write one.
  * Included by details.php, which sets $id, $season, $reviews, $reviewError,
- * $reviewName, $reviewText and $isBook.
- * The form is sent to details.php with POST and saved in the MySQL "reviews" table.
+ * $reviewText and $returnHere.
+ * Members: the form is sent to details.php with POST and saved in the MySQL "reviews" table.
+ * Visitors: they are asked to log in or register first.
  */
 ?>
 <section class="info-block mt-4" id="reviews">
@@ -50,32 +51,37 @@
 
         <!-- ===== Write a review (plain HTML form, method POST) ===== -->
         <div class="col-lg-5">
-            <form method="post" action="details.php?id=<?php echo $id; ?><?php if ($season > 0) echo "&season=" . $season; ?>#reviews"
-                  class="review-form" id="reviewForm">
-                <h5>Write a review</h5>
+            <?php if (isLoggedIn()) { ?>
+                <form method="post" action="<?php echo $returnHere; ?>#reviews" class="review-form" id="reviewForm">
+                    <h5>Write a review</h5>
+                    <p class="text-muted-light small">Posting as <strong><?php echo htmlspecialchars($_SESSION["user_name"]); ?></strong></p>
 
-                <?php if ($reviewError != "") { ?>
-                    <p class="review-error"><?php echo $reviewError; ?></p>
-                <?php } ?>
-
-                <label for="reviewName" class="form-label">Your name</label>
-                <input type="text" class="form-control" id="reviewName" name="name" maxlength="50"
-                       value="<?php echo htmlspecialchars($reviewName); ?>">
-
-                <label class="form-label mt-3">Your rating</label>
-                <div class="star-choice">
-                    <?php for ($i = 5; $i >= 1; $i--) { ?>
-                        <input type="radio" name="review_stars" value="<?php echo $i; ?>" id="rs<?php echo $i; ?>">
-                        <label for="rs<?php echo $i; ?>" title="<?php echo $i; ?> stars">★</label>
+                    <?php if ($reviewError != "") { ?>
+                        <p class="form-error"><?php echo $reviewError; ?></p>
                     <?php } ?>
+
+                    <label class="form-label">Your rating</label>
+                    <div class="star-choice">
+                        <?php for ($i = 5; $i >= 1; $i--) { ?>
+                            <input type="radio" name="review_stars" value="<?php echo $i; ?>" id="rs<?php echo $i; ?>">
+                            <label for="rs<?php echo $i; ?>" title="<?php echo $i; ?> stars">★</label>
+                        <?php } ?>
+                    </div>
+
+                    <label for="reviewText" class="form-label mt-2">Your review</label>
+                    <textarea class="form-control" id="reviewText" name="review" rows="4" maxlength="1000"
+                              placeholder="What did you like or dislike?"><?php echo htmlspecialchars($reviewText); ?></textarea>
+
+                    <button type="submit" class="btn btn-potato mt-3">Post review</button>
+                </form>
+            <?php } else { ?>
+                <div class="review-form text-center">
+                    <h5>Want to write a review?</h5>
+                    <p class="text-muted-light">Register with your name and email — it takes 10 seconds.</p>
+                    <a href="register.php?return=<?php echo urlencode($returnHere . "#reviews"); ?>" class="btn btn-potato">Register</a>
+                    <a href="login.php?return=<?php echo urlencode($returnHere . "#reviews"); ?>" class="btn btn-outline-light ms-2">Log in</a>
                 </div>
-
-                <label for="reviewText" class="form-label mt-2">Your review</label>
-                <textarea class="form-control" id="reviewText" name="review" rows="4" maxlength="1000"
-                          placeholder="What did you like or dislike?"><?php echo htmlspecialchars($reviewText); ?></textarea>
-
-                <button type="submit" class="btn btn-potato mt-3">Post review</button>
-            </form>
+            <?php } ?>
         </div>
     </div>
 </section>

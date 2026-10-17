@@ -239,6 +239,49 @@ function cardMeta($t) {
     return $t["year"] . " · " . label($t["genres"][0]);
 }
 
+// Recommends titles similar to the ones in a wishlist.
+// Every other title gets points: +1 for each genre it shares with a wishlist title,
+// and +1 more if it is also the same kind (movie, series, anime, book).
+// Ties are decided by the rating. Returns the best $limit titles.
+function recommendTitles($wishIds, $limit) {
+    global $allTitles;
+
+    $scores = array();
+    foreach ($allTitles as $id => $t) {
+        if (in_array($id, $wishIds)) {
+            continue;                                   // already in the wishlist
+        }
+        $score = 0;
+        foreach ($wishIds as $wishId) {
+            if (!isset($allTitles[$wishId])) {
+                continue;
+            }
+            $wish   = $allTitles[$wishId];
+            $shared = count(array_intersect($t["genres"], $wish["genres"]));
+            if ($shared > 0) {
+                $score += $shared;
+                if ($t["type"] == $wish["type"]) {
+                    $score += 1;
+                }
+            }
+        }
+        if ($score > 0) {
+            $scores[$id] = $score + $t["rating"] / 100;  // rating 8.5 adds 0.085
+        }
+    }
+
+    arsort($scores);                                     // highest score first
+
+    $result = array();
+    foreach ($scores as $id => $score) {
+        $result[$id] = $allTitles[$id];
+        if (count($result) == $limit) {
+            break;
+        }
+    }
+    return $result;
+}
+
 // Builds a link to category.php with the given filters (empty filters are left out)
 function categoryLink($type, $genre, $industry, $format, $bookList, $sort) {
     $link = "category.php?type=" . $type;
