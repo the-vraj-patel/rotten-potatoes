@@ -1,0 +1,25 @@
+<?php
+/*
+ * Seasons and episodes of Kingdom (data: TVmaze)
+ * Included by details.php. Ratings are out of 10 (null = no rating yet).
+ */
+
+$seasons = array(
+    array("number" => 1, "name" => "Season 1", "rating" => 8.9, "episodes" => array(
+        array("id" => "s1e1", "season" => 1, "number" => 1, "name" => "Episode 1", "airdate" => "25 Jan 2019", "runtime" => 57, "rating" => 7.9, "summary" => "Officials find notices in Hanyang alleging the king is dead. Crown Prince Lee Chang tries to check on his father, but the young queen stands in his way.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/181/453438.jpg"),
+        array("id" => "s1e2", "season" => 1, "number" => 2, "name" => "Episode 2", "airdate" => "25 Jan 2019", "runtime" => 54, "rating" => 9.1, "summary" => "Prince Chang and Moo Young arrive at Jiyulheon, where they make a horrific discovery. Seo Bi's story of what she saw eerily resonates with Prince Chang.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/181/453439.jpg"),
+        array("id" => "s1e3", "season" => 1, "number" => 3, "name" => "Episode 3", "airdate" => "25 Jan 2019", "runtime" => 55, "rating" => 9.1, "summary" => "Night leads to chaos in Dongnae. Jo Hak Joo and the queen oversee the king's care. Prince Chang reaches a disquieting conclusion and vows to fight back.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/181/453440.jpg"),
+        array("id" => "s1e4", "season" => 1, "number" => 4, "name" => "Episode 4", "airdate" => "25 Jan 2019", "runtime" => 46, "rating" => 9.1, "summary" => "On his way to seek Lord Ahn Hyun's help, Prince Chang encounters a group of stranded survivors and leads them to Jiyulheon, following Seo Bi's advice.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/181/453441.jpg"),
+        array("id" => "s1e5", "season" => 1, "number" => 5, "name" => "Episode 5", "airdate" => "25 Jan 2019", "runtime" => 53, "rating" => 9, "summary" => "Prince Chang's group comes across a village that oddly seems to be well-fed. While taking refuge at Lord Ahn Hyun's, Seo Bi notes something peculiar.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/181/453442.jpg"),
+        array("id" => "s1e6", "season" => 1, "number" => 6, "name" => "Episode 6", "airdate" => "25 Jan 2019", "runtime" => 44, "rating" => 9.4, "summary" => "Jo Hak Joo has chilling words for the queen, who's hiding a sinister secret. Prince Chang orders Sangju's defenses, but Seo Bi senses something awry.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/181/453443.jpg"),
+    )),
+    array("number" => 2, "name" => "Season 2", "rating" => 8.8, "episodes" => array(
+        array("id" => "s2e1", "season" => 2, "number" => 1, "name" => "Episode 1", "airdate" => "13 Mar 2020", "runtime" => 52, "rating" => 8.5, "summary" => "An unexpected setback in Sangju poses new problems for Prince Chang and the others. Seo Bi and Jo Bum Pal seek safety with Jo Hak Joo. ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/245/614440.jpg"),
+        array("id" => "s2e2", "season" => 2, "number" => 2, "name" => "Episode 2", "airdate" => "13 Mar 2020", "runtime" => 40, "rating" => 8.9, "summary" => "After Prince Chang breaks into Mungyeong Saejae, a nightmare unfolds. Officials search the queen's home, suspecting she is hiding something. ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/245/614441.jpg"),
+        array("id" => "s2e3", "season" => 2, "number" => 3, "name" => "Episode 3", "airdate" => "13 Mar 2020", "runtime" => 49, "rating" => 8.6, "summary" => "When Jo Hak Joo is taken from his custody, Prince Chang goes after him. Seo Bi looks for a way to treat the disease. The queen awaits her prince. ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/245/614442.jpg"),
+        array("id" => "s2e4", "season" => 2, "number" => 4, "name" => "Episode 4", "airdate" => "13 Mar 2020", "runtime" => 43, "rating" => 8.7, "summary" => "Seo Bi shares a critical discovery with Prince Chang, who has a favor to ask of her. Jo Hak Joo visits the queen and demands she tell him the truth. ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/245/614443.jpg"),
+        array("id" => "s2e5", "season" => 2, "number" => 5, "name" => "Episode 5", "airdate" => "13 Mar 2020", "runtime" => 36, "rating" => 8.9, "summary" => "To save innocent lives, Prince Chang and his men take over Hanyang. The queen determines that if she can't have the throne, no one can. ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/245/614444.jpg"),
+        array("id" => "s2e6", "season" => 2, "number" => 6, "name" => "Episode 6", "airdate" => "13 Mar 2020", "runtime" => 52, "rating" => 8.9, "summary" => "With the palace painted red with blood, Prince Chang is forced to pursue a risky strategy. Seo Bi takes the baby and hides.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/245/614445.jpg"),
+    )),
+);
+?>

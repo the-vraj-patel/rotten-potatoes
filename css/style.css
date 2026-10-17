@@ -521,3 +521,364 @@ img[src$=".jpg"] {
     .search-form    { margin-top: 10px; }
     .search-form .form-control { min-width: 0; }
 }
+
+
+/* ==========================================================
+   Categories, filters, ratings and episodes
+   ========================================================== */
+
+/* ---------- Category tile count ---------- */
+.tile-count {
+    color: var(--muted);
+    font-weight: 300;
+}
+
+/* ---------- Horizontal poster rows on the homepage ---------- */
+.poster-row {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+}
+
+.poster-row-item {
+    flex: 0 0 170px;
+}
+
+/* ---------- Extra card bits ---------- */
+.format-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--potato);
+    color: #1a1208;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+.no-poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 2 / 3;
+    padding: 12px;
+    text-align: center;
+    background-color: var(--surface-2);
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.no-poster span {
+    font-size: 2.5rem;
+}
+
+/* ---------- Filter buttons ---------- */
+.filters {
+    background-color: var(--surface);
+    border: 1px solid #2f2820;
+    border-radius: var(--radius);
+    padding: 16px 18px 8px;
+    margin-bottom: 30px;
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.filter-label {
+    width: 80px;
+    color: var(--potato);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid #3a3128;
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 0.85rem;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.filter-pill small {
+    color: var(--muted);
+}
+
+.filter-pill:hover {
+    border-color: var(--potato);
+    color: var(--potato);
+}
+
+.filter-pill.active {
+    background-color: var(--potato);
+    border-color: var(--potato);
+    color: #1a1208;
+    font-weight: 600;
+}
+
+.filter-pill.active small {
+    color: #3d2a0c;
+}
+
+.filter-pill.big {
+    padding: 10px 22px;
+    margin: 0 6px 10px 0;
+    font-size: 1rem;
+    background-color: var(--surface);
+}
+
+/* ---------- Pagination ---------- */
+.potato-pages .page-link {
+    background-color: var(--surface);
+    border-color: #2f2820;
+    color: var(--text);
+}
+
+.potato-pages .page-item.active .page-link {
+    background-color: var(--potato);
+    border-color: var(--potato);
+    color: #1a1208;
+}
+
+/* ---------- Search groups ---------- */
+.search-group {
+    font-family: "Bebas Neue", Impact, sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: var(--potato);
+    margin: 20px 0 16px;
+}
+
+.search-group small {
+    font-family: "Poppins", Arial, sans-serif;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+/* ---------- Details page extras ---------- */
+.details-backdrop.from-poster {
+    filter: blur(30px);
+    opacity: 0.3;
+}
+
+.details-original {
+    color: var(--muted);
+    font-style: italic;
+    margin: -18px 0 22px;
+}
+
+a.genre-pill:hover {
+    background-color: var(--potato);
+    color: #1a1208;
+}
+
+.subject-tag {
+    display: inline-block;
+    background-color: var(--surface-2);
+    color: var(--muted);
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin: 0 6px 6px 0;
+}
+
+.rate-message {
+    background-color: var(--surface);
+    border: 1px solid var(--fresh);
+    border-radius: var(--radius);
+    padding: 10px 16px;
+    margin-bottom: 20px;
+}
+
+/* ---------- "Rate it yourself" stars (each star is a submit button) ---------- */
+.rate-form {
+    margin: 0;
+}
+
+.rate-star {
+    background: none;
+    border: none;
+    padding: 0 2px;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #4a4036;
+    cursor: pointer;
+}
+
+.rate-star.on {
+    color: var(--potato);
+}
+
+.rate-star.hover {
+    color: #f2c06f;
+}
+
+.rate-info {
+    display: block;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.episode .rate-star {
+    font-size: 1.1rem;
+}
+
+/* ---------- Episode rating table ---------- */
+.episode-grid-wrap {
+    overflow: auto;
+    max-height: 520px;
+}
+
+.episode-grid {
+    border-collapse: separate;
+    border-spacing: 4px;
+}
+
+.episode-grid th {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 4px;
+}
+
+.grid-cell {
+    display: inline-block;
+    min-width: 44px;
+    padding: 5px 4px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #14110d;
+}
+
+a.grid-cell:hover {
+    color: #14110d;
+    outline: 2px solid var(--text);
+}
+
+.r-great { background-color: #3e9b4f; }
+.r-good  { background-color: #8cc152; }
+.r-ok    { background-color: #e0c048; }
+.r-meh   { background-color: #e08a3c; }
+.r-bad   { background-color: #c0563f; }
+.r-none  { background-color: var(--surface-2); color: var(--muted); }
+
+.grid-average .grid-cell {
+    outline: 2px solid var(--text);
+}
+
+.grid-legend {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.grid-legend .grid-cell {
+    min-width: 34px;
+    margin: 0 4px 4px 10px;
+    padding: 2px 4px;
+}
+
+/* ---------- Season buttons + episode list ---------- */
+.season-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.season-summary {
+    color: var(--muted);
+}
+
+.season-summary strong {
+    color: var(--text);
+}
+
+.episode {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+    background-color: var(--surface);
+    border: 1px solid #2f2820;
+    border-radius: var(--radius);
+}
+
+/* :target = the episode whose id is in the URL (#ep-s1e5) gets highlighted */
+.episode:target {
+    border-color: var(--potato);
+}
+
+.episode-number {
+    flex: 0 0 42px;
+    font-family: "Bebas Neue", Impact, sans-serif;
+    font-size: 1.6rem;
+    color: var(--potato);
+}
+
+.episode-still {
+    width: 160px;
+    border-radius: 8px;
+}
+
+.episode-body {
+    flex: 1;
+}
+
+.episode-body h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.episode-meta {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.episode-summary {
+    font-size: 0.88rem;
+    color: #d6ccbe;
+}
+
+.episode-rating {
+    flex: 0 0 160px;
+    text-align: right;
+}
+
+.episode-score {
+    display: inline-block;
+    padding: 3px 10px;
+    margin-bottom: 6px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #14110d;
+}
+
+@media (max-width: 768px) {
+    .poster-row-item { flex-basis: 135px; }
+    .filter-label    { width: 100%; }
+    .episode         { flex-wrap: wrap; }
+    .episode-still   { display: none; }
+    .episode-rating  { flex-basis: 100%; text-align: left; }
+}

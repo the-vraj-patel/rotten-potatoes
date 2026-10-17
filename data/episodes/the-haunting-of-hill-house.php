@@ -1,0 +1,21 @@
+<?php
+/*
+ * Seasons and episodes of The Haunting of Hill House (data: TVmaze)
+ * Included by details.php. Ratings are out of 10 (null = no rating yet).
+ */
+
+$seasons = array(
+    array("number" => 1, "name" => "Season 1", "rating" => 8.3, "episodes" => array(
+        array("id" => "s1e1", "season" => 1, "number" => 1, "name" => "Steven Sees a Ghost", "airdate" => "12 Oct 2018", "runtime" => 60, "rating" => 7.5, "summary" => "While investigating a ghost story for his latest novel, a skeptical Steven receives a call from his sister that triggers a chain of fateful events.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341200.jpg"),
+        array("id" => "s1e2", "season" => 1, "number" => 2, "name" => "Open Casket", "airdate" => "12 Oct 2018", "runtime" => 52, "rating" => 7.7, "summary" => "A devastating family tragedy stirs memories of traumatic losses, reminding Shirley of her first brush with death -- and awakening long-dormant fears.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341206.jpg"),
+        array("id" => "s1e3", "season" => 1, "number" => 3, "name" => "Touch", "airdate" => "12 Oct 2018", "runtime" => 54, "rating" => 8.1, "summary" => "Keenly perceptive Theo sees shades of herself in a troubled young patient, a girl who's haunted by the menacing grin of \"Mr. Smiley.\"", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341209.jpg"),
+        array("id" => "s1e4", "season" => 1, "number" => 4, "name" => "The Twin Thing", "airdate" => "12 Oct 2018", "runtime" => 53, "rating" => 8.3, "summary" => "Still wrestling with addiction -- and an unshakable fright -- a frantic Luke tries to save a friend while sensing his twin sister is in danger.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341211.jpg"),
+        array("id" => "s1e5", "season" => 1, "number" => 5, "name" => "The Bent-Neck Lady", "airdate" => "12 Oct 2018", "runtime" => 71, "rating" => 8.8, "summary" => "A dark specter with an unsettling silhouette has haunted Nell since she was a girl. Now \"the Bent-Neck Lady\" is back -- and she's calling Nell home.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341212.jpg"),
+        array("id" => "s1e6", "season" => 1, "number" => 6, "name" => "Two Storms", "airdate" => "12 Oct 2018", "runtime" => 57, "rating" => 8.6, "summary" => "It's a reunion for all the wrong reasons when Hugh flies in for the funeral, coming face to face with his estranged children on a dark, stormy night.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341215.jpg"),
+        array("id" => "s1e7", "season" => 1, "number" => 7, "name" => "Eulogy", "airdate" => "12 Oct 2018", "runtime" => 61, "rating" => 8.3, "summary" => "As the Crains gather to say their final goodbyes, a flashback reveals Mr. Dudley's connection to the house -- and exposes a secret in the walls.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341220.jpg"),
+        array("id" => "s1e8", "season" => 1, "number" => 8, "name" => "Witness Marks", "airdate" => "12 Oct 2018", "runtime" => 43, "rating" => 8.8, "summary" => "A familiar terror revisits Shirley and Theo on Halloween night as Hugh and Steve go looking for Luke, who disappeared on a deadly errand.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341316.jpg"),
+        array("id" => "s1e9", "season" => 1, "number" => 9, "name" => "Screaming Meemies", "airdate" => "12 Oct 2018", "runtime" => 58, "rating" => 8.9, "summary" => "While struggling to discern dreams from reality, Olivia fears for her children's safety, a motherly instinct Mrs. Dudley urges her to embrace.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341318.jpg"),
+        array("id" => "s1e10", "season" => 1, "number" => 10, "name" => "Silence Lay Steadily", "airdate" => "12 Oct 2018", "runtime" => 71, "rating" => 8.4, "summary" => "The Red Room's contents are finally revealed as the Crains return to the house to confront old ghosts, unspeakable secrets and an insatiable evil.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/536/1341322.jpg"),
+    )),
+);
+?>

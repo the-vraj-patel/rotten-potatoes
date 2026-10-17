@@ -1,0 +1,18 @@
+<?php
+/*
+ * Seasons and episodes of Mare of Easttown (data: TVmaze)
+ * Included by details.php. Ratings are out of 10 (null = no rating yet).
+ */
+
+$seasons = array(
+    array("number" => 1, "name" => "Season 1", "rating" => 8.2, "episodes" => array(
+        array("id" => "s1e1", "season" => 1, "number" => 1, "name" => "Miss Lady Hawk Herself", "airdate" => "18 Apr 2021", "runtime" => 58, "rating" => 7.5, "summary" => "After answering a call about a neighborhood prowler, Detective Mare Sheehan shoulders her chief's directive to revive an unsolved missing person's case amid increased community pressure. Later, while her loved ones celebrate her ex-husband Frank's engagement,…", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/325/813044.jpg"),
+        array("id" => "s1e2", "season" => 1, "number" => 2, "name" => "Fathers", "airdate" => "25 Apr 2021", "runtime" => 58, "rating" => 8.2, "summary" => "Mare visits a grisly murder scene before informing the victim's enraged father. As a video from the night of the crime surfaces, Mare questions suspects in the case and gives an icy welcome to County Detective Colin Zabel, who's been called in to assist. Late…", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/325/813046.jpg"),
+        array("id" => "s1e3", "season" => 1, "number" => 3, "name" => "Enter Number Two", "airdate" => "2 May 2021", "runtime" => 60, "rating" => 8.2, "summary" => "As Mare and Colin parse new physical evidence, phone records lead to an unlikely suspect. After lashing out at Helen about a possible custody fight over Drew, Mare receives some unprompted advice from Richard on how to move forward with Carrie. Later, Kenny a…", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/325/813047.jpg"),
+        array("id" => "s1e4", "season" => 1, "number" => 4, "name" => "Poor Sisyphus", "airdate" => "9 May 2021", "runtime" => 57, "rating" => 8.1, "summary" => "With Mare forced to take a backseat on the case, Colin presses a local priest about the vague circumstances that prompted his transfer to the parish. Meanwhile, an anonymous call gives Dawn hope that Katie might still be alive.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/325/813048.jpg"),
+        array("id" => "s1e5", "season" => 1, "number" => 5, "name" => "Illusions", "airdate" => "16 May 2021", "runtime" => 60, "rating" => 8.4, "summary" => "In her mandated therapy, Mare opens up about her family's history with mental health struggles. Meanwhile, Lori tries to get to the bottom of her son's outburst at school, and later, Mare meets with a semi-retired source to help find a possible connection to…", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/325/813049.jpg"),
+        array("id" => "s1e6", "season" => 1, "number" => 6, "name" => "Sore Must Be the Storm", "airdate" => "23 May 2021", "runtime" => 60, "rating" => 8.3, "summary" => "After a heroic rescue lands her in the hospital, Mare awakes to the pain of losing a friend. Then, given a second chance by Chief Carter, Mare reevaluates old suspects, which leads to a shocking clue. Meanwhile, Richard visits Mare in hopes of deepening their…", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/325/813050.jpg"),
+        array("id" => "s1e7", "season" => 1, "number" => 7, "name" => "Sacrament", "airdate" => "30 May 2021", "runtime" => 67, "rating" => 8.4, "summary" => "Mare's investigation takes a series of devastating turns, while her friends and family members process the fallout as she attempts to finally find her own way forward. ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/325/813051.jpg"),
+    )),
+);
+?>

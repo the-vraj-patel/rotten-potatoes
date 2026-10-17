@@ -64,7 +64,7 @@ $searchText = isset($_GET["q"]) ? $_GET["q"] : "";
             <!-- Search form: sends ?q=... to search.php using GET -->
             <form class="d-flex search-form" action="search.php" method="get" id="searchForm">
                 <input class="form-control me-2" type="search" name="q" id="searchInput"
-                       placeholder="Search titles..." aria-label="Search"
+                       placeholder="Movies, shows, anime, books..." aria-label="Search"
                        value="<?php echo htmlspecialchars($searchText); ?>">
                 <button class="btn btn-potato" type="submit">Search</button>
             </form>

@@ -1,0 +1,29 @@
+<?php
+/*
+ * Seasons and episodes of Sherlock (data: TVmaze)
+ * Included by details.php. Ratings are out of 10 (null = no rating yet).
+ */
+
+$seasons = array(
+    array("number" => 1, "name" => "Season 1", "rating" => 8.3, "episodes" => array(
+        array("id" => "s1e1", "season" => 1, "number" => 1, "name" => "A Study in Pink", "airdate" => "25 Jul 2010", "runtime" => 90, "rating" => 8.6, "summary" => "A war hero, invalided home from Afghanistan, meets a strange but charismatic genius who is looking for a flatmate - it is London in 2010, and Dr Watson and Sherlock Holmes are meeting for the first time. A string of impossible suicides has Scotland Yard baffl…", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/432/1082204.jpg"),
+        array("id" => "s1e2", "season" => 1, "number" => 2, "name" => "The Blind Banker", "airdate" => "1 Aug 2010", "runtime" => 90, "rating" => 7.9, "summary" => "A mysterious cipher is being scrawled on the walls around London. The first person to see the cipher is dead within hours of reading it. Sherlock plunges into a world of codes and symbols, consulting with London's best graffiti artists. He soon learns that th…", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/432/1082205.jpg"),
+        array("id" => "s1e3", "season" => 1, "number" => 3, "name" => "The Great Game", "airdate" => "8 Aug 2010", "runtime" => 90, "rating" => 8.5, "summary" => "A strange clue in an empty room, a blood-soaked car, a priceless Old Master, a deranged bomber. With the clock ticking, the curtain rises on a battle of wits between Sherlock, John and the shadowy stranger who seems to know all the answers...", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/432/1082206.jpg"),
+    )),
+    array("number" => 2, "name" => "Season 2", "rating" => 8.4, "episodes" => array(
+        array("id" => "s2e1", "season" => 2, "number" => 1, "name" => "A Scandal in Belgravia", "airdate" => "1 Jan 2012", "runtime" => 90, "rating" => 8.7, "summary" => "Rejoin the 21st-century team of Sherlock Holmes and Dr. Watson as they battle the worst that modern criminality has to offer.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587222.jpg"),
+        array("id" => "s2e2", "season" => 2, "number" => 2, "name" => "The Hounds of Baskerville", "airdate" => "8 Jan 2012", "runtime" => 90, "rating" => 7.9, "summary" => "Watch Sherlock and Watson pursue information about research on genetically engineered animals for military use.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587221.jpg"),
+        array("id" => "s2e3", "season" => 2, "number" => 3, "name" => "The Reichenbach Fall", "airdate" => "15 Jan 2012", "runtime" => 90, "rating" => 8.6, "summary" => "Watch as Moriarty poses the \"final problem\" and a tabloid reporter reveals the \"shocking truth\" about Sherlock.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587220.jpg"),
+    )),
+    array("number" => 3, "name" => "Season 3", "rating" => 8.1, "episodes" => array(
+        array("id" => "s3e1", "season" => 3, "number" => 1, "name" => "The Empty Hearse", "airdate" => "1 Jan 2014", "runtime" => 90, "rating" => 8.1, "summary" => "'Just one more miracle, Sherlock. Stop being dead.' Two years after the devastating events of The Reichenbach Fall, Dr John Watson has got on with his life. New horizons, romance and a comforting domestic future beckon.But with London under threat of a huge t…", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587219.jpg"),
+        array("id" => "s3e2", "season" => 3, "number" => 2, "name" => "The Sign of Three", "airdate" => "5 Jan 2014", "runtime" => 90, "rating" => 8.1, "summary" => "Sherlock faces his biggest challenge of all - delivering a best man's speech on John's wedding day.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587218.jpg"),
+        array("id" => "s3e3", "season" => 3, "number" => 3, "name" => "His Last Vow", "airdate" => "12 Jan 2014", "runtime" => 90, "rating" => 8.1, "summary" => "Sherlock goes after publishing magnate and blackmailer Charles Magnussen, one of the most despicable criminals that he has ever encountered.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587217.jpg"),
+    )),
+    array("number" => 4, "name" => "Season 4", "rating" => 7.5, "episodes" => array(
+        array("id" => "s4e1", "season" => 4, "number" => 1, "name" => "The Six Thatchers", "airdate" => "1 Jan 2017", "runtime" => 90, "rating" => 7.3, "summary" => "While waiting for Moriarty to make good on his beyond-the-grave threat, Sherlock is intrigued by cases of vandalism where the criminal is breaking open busts of Margaret Thatcher. He soon discovers that the vandalism is tied to Mary's past.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587215.jpg"),
+        array("id" => "s4e2", "season" => 4, "number" => 2, "name" => "The Lying Detective", "airdate" => "8 Jan 2017", "runtime" => 90, "rating" => 7.9, "summary" => "To save John, Sherlock takes on the most dangerous case of his career: bring serial killer and milliionaire-philanthropist Culverton Smith to justice. Meanwhile, the mystery of Sherringford Holmes deepens.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587214.jpg"),
+        array("id" => "s4e3", "season" => 4, "number" => 3, "name" => "The Final Problem", "airdate" => "15 Jan 2017", "runtime" => 90, "rating" => 7.4, "summary" => "Sherlock and John confirm that Eurus is still alive, and go to Sherringford to meet with her. However, they soon discover that it is all part of Eurus' master plan.", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/234/587213.jpg"),
+    )),
+);
+?>

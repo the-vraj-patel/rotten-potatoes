@@ -1,0 +1,21 @@
+<?php
+/*
+ * Seasons and episodes of Cyberpunk: Edgerunners (data: TVmaze)
+ * Included by details.php. Ratings are out of 10 (null = no rating yet).
+ */
+
+$seasons = array(
+    array("number" => 1, "name" => "Season 1", "rating" => 7.8, "episodes" => array(
+        array("id" => "s1e1", "season" => 1, "number" => 1, "name" => "Let You Down", "airdate" => "13 Sep 2022", "runtime" => 24, "rating" => 7.5, "summary" => "After a night of streaming illegal braindance, David wakes up to reality: a rundown apartment with a broken washing machine and an overworked mother.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054910.jpg"),
+        array("id" => "s1e2", "season" => 1, "number" => 2, "name" => "Like a Boy", "airdate" => "13 Sep 2022", "runtime" => 24, "rating" => 7.7, "summary" => "With his newly enhanced body, David heads to the Academy seeking revenge on his bully. Later, he meets a mysterious woman who wants to recruit him.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054911.jpg"),
+        array("id" => "s1e3", "season" => 1, "number" => 3, "name" => "Smooth Criminal", "airdate" => "13 Sep 2022", "runtime" => 24, "rating" => 7.6, "summary" => "Surrounded by a group of rowdy edgerunners, David makes a plea to join their team. Meanwhile, sinister forces plot to lure him back to Arasaka Academy.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054912.jpg"),
+        array("id" => "s1e4", "season" => 1, "number" => 4, "name" => "Lucky You", "airdate" => "13 Sep 2022", "runtime" => 24, "rating" => 7.8, "summary" => "Eager to learn the edgerunner ropes, David pesters Maine for another mission. Instead, Maine tasks Lucy with training him.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054913.jpg"),
+        array("id" => "s1e5", "season" => 1, "number" => 5, "name" => "All Eyez On Me", "airdate" => "13 Sep 2022", "runtime" => 23, "rating" => 7.7, "summary" => "David makes a clever suggestion when the team strategizes for their next mission. However, he soon learns that their target can't be underestimated.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054914.jpg"),
+        array("id" => "s1e6", "season" => 1, "number" => 6, "name" => "Girl on Fire", "airdate" => "13 Sep 2022", "runtime" => 26, "rating" => 8, "summary" => "Maine doesn't seem to be himself. But the team has bigger fish to fry: They must race against time to extract vital information from their prisoner.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054915.jpg"),
+        array("id" => "s1e7", "season" => 1, "number" => 7, "name" => "Stronger", "airdate" => "13 Sep 2022", "runtime" => 24, "rating" => 7.8, "summary" => "Now an all-star edgerunner enhanced with more cybernetics, David leads his team into a new mission. An old contact reaches out to him for a big job.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054916.jpg"),
+        array("id" => "s1e8", "season" => 1, "number" => 8, "name" => "Stay", "airdate" => "13 Sep 2022", "runtime" => 24, "rating" => 7.7, "summary" => "Faraday finds himself stuck between Arasaka and Militech. Lucy and Rebecca confront David about his change in behavior, but he refuses to listen.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054917.jpg"),
+        array("id" => "s1e9", "season" => 1, "number" => 9, "name" => "Humanity", "airdate" => "13 Sep 2022", "runtime" => 25, "rating" => 8, "summary" => "Lucy's captors learn about her secret mission and dark past. David and his team head out to complete Faraday's job but realize that something is off.  ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054918.jpg"),
+        array("id" => "s1e10", "season" => 1, "number" => 10, "name" => "My Moon My Man", "airdate" => "13 Sep 2022", "runtime" => 27, "rating" => 7.8, "summary" => "On the edge of cyberpsychosis but determined to save Lucy, David storms into Night City as Arasaka plots to deploy their ultimate lethal weapon. ", "image" => "https://static.tvmaze.com/uploads/images/medium_landscape/421/1054919.jpg"),
+    )),
+);
+?>

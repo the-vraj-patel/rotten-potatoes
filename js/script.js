@@ -18,12 +18,20 @@ $(document).ready(function () {
 
     // Remove the red border as soon as the user starts typing
     $("#searchInput").on("input", function () {
-        $(this).removeClass("is-invalid").attr("placeholder", "Search titles...");
+        $(this).removeClass("is-invalid").attr("placeholder", "Movies, shows, anime, books...");
     });
 
-    // 2. Fade in movie cards one after another when the page loads
+    // 2. Fade in the cards one after another when the page loads
     $(".movie-card").each(function (index) {
-        $(this).hide().delay(index * 120).fadeIn(500);
+        $(this).hide().delay(index * 60).fadeIn(400);
+    });
+
+    // 3. Star rating: light up the stars up to the one under the mouse
+    $(".rate-star").on("mouseenter", function () {
+        $(this).prevAll(".rate-star").addBack().addClass("hover");
+    });
+    $(".rate-star").on("mouseleave", function () {
+        $(this).siblings(".rate-star").addBack().removeClass("hover");
     });
 
 });
