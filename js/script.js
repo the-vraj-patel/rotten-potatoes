@@ -26,7 +26,37 @@ $(document).ready(function () {
         $(this).hide().delay(index * 60).fadeIn(400);
     });
 
-    // 3. Star rating: light up the stars up to the one under the mouse
+    // 3. Review form validation: name, stars and at least 10 characters of text
+    $("#reviewForm").on("submit", function (event) {
+        var ok = true;
+
+        if ($("#reviewName").val().trim() === "") {
+            $("#reviewName").addClass("is-invalid");
+            ok = false;
+        }
+        if ($("input[name='review_stars']:checked").length === 0) {
+            $(".star-choice").addClass("is-invalid");
+            ok = false;
+        }
+        if ($("#reviewText").val().trim().length < 10) {
+            $("#reviewText").addClass("is-invalid").attr("placeholder", "Write at least 10 characters");
+            ok = false;
+        }
+
+        if (!ok) {
+            event.preventDefault();                       // stop the form from submitting
+        }
+    });
+
+    // Remove the red colour again when the visitor fixes a field
+    $("#reviewName, #reviewText").on("input", function () {
+        $(this).removeClass("is-invalid");
+    });
+    $("input[name='review_stars']").on("change", function () {
+        $(".star-choice").removeClass("is-invalid");
+    });
+
+    // 4. Star rating: light up the stars up to the one under the mouse
     $(".rate-star").on("mouseenter", function () {
         $(this).prevAll(".rate-star").addBack().addClass("hover");
     });

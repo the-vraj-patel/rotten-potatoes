@@ -9,24 +9,31 @@
 // $season  : season shown on the page (so we come back to the same season)
 // $episode : episode id like "s1e5", or "" for the whole title
 // $ratings : the array from getRatings()
-function ratingForm($id, $season, $episode, $ratings) {
+// $label   : text above the stars, e.g. "Rate this movie" (empty = no text)
+function ratingForm($id, $season, $episode, $ratings, $label) {
     if (isset($ratings[$episode])) {
         $data = $ratings[$episode];
     } else {
         $data = array("avg" => 0, "count" => 0, "mine" => 0);
     }
 
-    // After saving, jump back to the same episode on the page
+    // After saving, jump back to the same place on the page
     $action = "details.php?id=" . $id;
     if ($season > 0) {
         $action .= "&season=" . $season;
     }
     if ($episode != "") {
         $action .= "#ep-" . $episode;
+    } else {
+        $action .= "#rating";
     }
 
-    $html  = '<form method="post" action="' . $action . '" class="rate-form">';
+    $html = '<form method="post" action="' . $action . '" class="rate-form">';
+    if ($label != "") {
+        $html .= '<span class="rate-label">' . $label . '</span>';
+    }
     $html .= '<input type="hidden" name="episode" value="' . $episode . '">';
+    $html .= '<div class="rate-stars">';
     for ($i = 1; $i <= 5; $i++) {
         $class = "rate-star";
         if ($i <= $data["mine"]) {
@@ -34,16 +41,19 @@ function ratingForm($id, $season, $episode, $ratings) {
         }
         $html .= '<button type="submit" name="stars" value="' . $i . '" class="' . $class . '" title="' . $i . ' out of 5">★</button>';
     }
-    if ($data["count"] == 0) {
-        $html .= '<span class="rate-info">Be the first to rate</span>';
-    } else {
-        $html .= '<span class="rate-info">' . $data["avg"] . '★ from ' . $data["count"] . ' visitor(s)</span>';
+    $html .= '</div>';
+
+    // Small line under the stars
+    if ($data["mine"] > 0) {
+        $html .= '<span class="rate-info">You gave ' . $data["mine"] . '★ &middot; average ' . $data["avg"] . '★ (' . $data["count"] . ')</span>';
+    } elseif ($data["count"] > 0) {
+        $html .= '<span class="rate-info">Visitors: ' . $data["avg"] . '★ (' . $data["count"] . ')</span>';
     }
     $html .= '</form>';
     return $html;
 }
 
-// CSS class for a rating out of 10, used for the colours in the episode table
+// CSS class for a rating out of 10, used for the colours in the episode tables
 function ratingClass($rating) {
     if ($rating == null) return "r-none";
     if ($rating >= 9)    return "r-great";

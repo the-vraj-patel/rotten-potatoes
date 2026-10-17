@@ -58,7 +58,6 @@ include "includes/header.php";
 <section class="container section">
     <div class="section-head">
         <h2><?php echo $heading; ?></h2>
-        <span class="text-muted-light"><?php echo count($items); ?> titles</span>
     </div>
 
     <!-- ===== Filters (each button is a link with different query string values) ===== -->
@@ -67,18 +66,18 @@ include "includes/header.php";
         <?php if ($type == "anime") { ?>
             <div class="filter-row">
                 <span class="filter-label">Format</span>
-                <a class="filter-pill <?php if ($format == "") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, "", $list, $sort); ?>">All</a>
-                <a class="filter-pill <?php if ($format == "series") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, "series", $list, $sort); ?>">Series</a>
-                <a class="filter-pill <?php if ($format == "movie") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, "movie", $list, $sort); ?>">Movies</a>
+                <a class="btn btn-filter <?php if ($format == "") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, "", $list, $sort); ?>">All</a>
+                <a class="btn btn-filter <?php if ($format == "series") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, "series", $list, $sort); ?>">Series</a>
+                <a class="btn btn-filter <?php if ($format == "movie") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, "movie", $list, $sort); ?>">Movies</a>
             </div>
         <?php } ?>
 
         <?php if ($type == "books") { ?>
             <div class="filter-row">
                 <span class="filter-label">Lists</span>
-                <a class="filter-pill <?php if ($list == "") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, "", $sort); ?>">All books</a>
+                <a class="btn btn-filter <?php if ($list == "") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, "", $sort); ?>">All books</a>
                 <?php foreach ($bookLists as $key => $label) { ?>
-                    <a class="filter-pill <?php if ($list == $key) echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, $key, $sort); ?>"><?php echo $label; ?></a>
+                    <a class="btn btn-filter <?php if ($list == $key) echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, $key, $sort); ?>"><?php echo $label; ?></a>
                 <?php } ?>
             </div>
         <?php } ?>
@@ -86,10 +85,10 @@ include "includes/header.php";
         <?php if ($type == "movies" || $type == "webseries") { ?>
             <div class="filter-row">
                 <span class="filter-label">Industry</span>
-                <a class="filter-pill <?php if ($industry == "") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, "", $format, $list, $sort); ?>">All</a>
+                <a class="btn btn-filter <?php if ($industry == "") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, "", $format, $list, $sort); ?>">All</a>
                 <?php foreach (countBy($allOfType, "industry") as $key => $count) { ?>
-                    <a class="filter-pill <?php if ($industry == $key) echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $key, $format, $list, $sort); ?>">
-                        <?php echo label($key); ?> <small><?php echo $count; ?></small>
+                    <a class="btn btn-filter <?php if ($industry == $key) echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $key, $format, $list, $sort); ?>">
+                        <?php echo label($key); ?>
                     </a>
                 <?php } ?>
             </div>
@@ -97,19 +96,19 @@ include "includes/header.php";
 
         <div class="filter-row">
             <span class="filter-label">Genre</span>
-            <a class="filter-pill <?php if ($genre == "") echo "active"; ?>" href="<?php echo categoryLink($type, "", $industry, $format, $list, $sort); ?>">All</a>
+            <a class="btn btn-filter <?php if ($genre == "") echo "active"; ?>" href="<?php echo categoryLink($type, "", $industry, $format, $list, $sort); ?>">All</a>
             <?php foreach (countBy($allOfType, "genres") as $key => $count) { ?>
-                <a class="filter-pill <?php if ($genre == $key) echo "active"; ?>" href="<?php echo categoryLink($type, $key, $industry, $format, $list, $sort); ?>">
-                    <?php echo label($key); ?> <small><?php echo $count; ?></small>
+                <a class="btn btn-filter <?php if ($genre == $key) echo "active"; ?>" href="<?php echo categoryLink($type, $key, $industry, $format, $list, $sort); ?>">
+                    <?php echo label($key); ?>
                 </a>
             <?php } ?>
         </div>
 
         <div class="filter-row">
             <span class="filter-label">Sort by</span>
-            <a class="filter-pill <?php if ($sort == "rating") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, $list, "rating"); ?>">Top rated</a>
-            <a class="filter-pill <?php if ($sort == "year") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, $list, "year"); ?>">Newest</a>
-            <a class="filter-pill <?php if ($sort == "title") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, $list, "title"); ?>">A–Z</a>
+            <a class="btn btn-filter <?php if ($sort == "rating") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, $list, "rating"); ?>">Top rated</a>
+            <a class="btn btn-filter <?php if ($sort == "year") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, $list, "year"); ?>">Newest</a>
+            <a class="btn btn-filter <?php if ($sort == "title") echo "active"; ?>" href="<?php echo categoryLink($type, $genre, $industry, $format, $list, "title"); ?>">A–Z</a>
         </div>
     </div>
 

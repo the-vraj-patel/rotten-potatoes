@@ -141,9 +141,20 @@ img[src$=".jpg"] {
 }
 
 /* ---------- Hero slider ---------- */
+/* The slider sits inside a .container, so pictures are never stretched to full screen width */
+.hero-container {
+    padding-top: 24px;
+}
+
+.hero-container .carousel {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
 .hero-slide {
     position: relative;
-    height: 520px;
+    height: 400px;
     overflow: hidden;
 }
 
@@ -167,6 +178,7 @@ img[src$=".jpg"] {
     top: 50%;
     transform: translateY(-50%) rotate(3deg);
     height: 78%;
+    max-height: 300px;               /* the cover pictures are small: don't blow them up */
     border-radius: 8px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
 }
@@ -202,7 +214,7 @@ img[src$=".jpg"] {
 
 .hero-text h2 {
     font-family: "Bebas Neue", Impact, sans-serif;
-    font-size: 4rem;
+    font-size: 3.4rem;
     letter-spacing: 1px;
     line-height: 1;
     margin: 8px 0 12px;
@@ -381,6 +393,7 @@ img[src$=".jpg"] {
 
 .details-poster {
     width: 100%;
+    max-width: 280px;                /* most posters are about 250-300px wide */
     border-radius: var(--radius);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
 }
@@ -584,7 +597,7 @@ img[src$=".jpg"] {
     background-color: var(--surface);
     border: 1px solid #2f2820;
     border-radius: var(--radius);
-    padding: 16px 18px 8px;
+    padding: 18px 20px 10px;
     margin-bottom: 30px;
 }
 
@@ -592,8 +605,8 @@ img[src$=".jpg"] {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 .filter-label {
@@ -605,41 +618,43 @@ img[src$=".jpg"] {
     letter-spacing: 1px;
 }
 
-.filter-pill {
-    display: inline-block;
-    padding: 4px 12px;
+/* Every filter is a Bootstrap .btn with our own colours */
+.btn-filter {
+    background-color: var(--surface-2);
     border: 1px solid #3a3128;
-    border-radius: 999px;
     color: var(--text);
-    font-size: 0.85rem;
-    transition: border-color 0.2s, background-color 0.2s;
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
 }
 
-.filter-pill small {
-    color: var(--muted);
-}
-
-.filter-pill:hover {
+.btn-filter:hover {
+    background-color: #3a3128;
     border-color: var(--potato);
     color: var(--potato);
+    transform: translateY(-2px);
 }
 
-.filter-pill.active {
+.btn-filter.active {
     background-color: var(--potato);
     border-color: var(--potato);
     color: #1a1208;
     font-weight: 600;
 }
 
-.filter-pill.active small {
-    color: #3d2a0c;
+.btn-filter.big {
+    padding: 12px 24px;
+    margin: 0 8px 10px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: var(--surface);
 }
 
-.filter-pill.big {
-    padding: 10px 22px;
-    margin: 0 6px 10px 0;
-    font-size: 1rem;
-    background-color: var(--surface);
+.btn-filter.big:hover {
+    background-color: var(--potato);
+    color: #1a1208;
 }
 
 /* ---------- Pagination ---------- */
@@ -812,73 +827,325 @@ a.grid-cell:hover {
     color: var(--text);
 }
 
-.episode {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 14px;
-    margin-bottom: 10px;
-    background-color: var(--surface);
-    border: 1px solid #2f2820;
+@media (max-width: 768px) {
+    .poster-row-item { flex-basis: 135px; }
+    .filter-label    { width: 100%; }
+    .hero-slide      { height: 300px; }
+    .score-big       { font-size: 2.2rem; }
+}
+
+/* ---------- Score cards (details page) ---------- */
+.score-card {
+    height: 100%;
+    padding: 18px 20px;
+    background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface) 100%);
+    border: 1px solid #3a3128;
     border-radius: var(--radius);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
-/* :target = the episode whose id is in the URL (#ep-s1e5) gets highlighted */
-.episode:target {
-    border-color: var(--potato);
+.score-title,
+.rate-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
 }
 
-.episode-number {
-    flex: 0 0 42px;
+.score-big {
     font-family: "Bebas Neue", Impact, sans-serif;
-    font-size: 1.6rem;
+    font-size: 2.8rem;
+    line-height: 1.1;
     color: var(--potato);
 }
 
-.episode-still {
-    width: 160px;
-    border-radius: 8px;
-}
-
-.episode-body {
-    flex: 1;
-}
-
-.episode-body h5 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 2px;
-}
-
-.episode-meta {
+.score-big small {
+    font-size: 1.2rem;
     color: var(--muted);
-    font-size: 0.8rem;
 }
 
-.episode-summary {
-    font-size: 0.88rem;
-    color: #d6ccbe;
-}
-
-.episode-rating {
-    flex: 0 0 160px;
-    text-align: right;
-}
-
-.episode-score {
-    display: inline-block;
-    padding: 3px 10px;
-    margin-bottom: 6px;
+.score-bar {
+    height: 8px;
+    margin-top: 10px;
+    background-color: #3a3128;
     border-radius: 999px;
+}
+
+.score-bar .progress-bar {
+    background-color: var(--potato);
+    border-radius: 999px;
+}
+
+.meter-label {
+    font-weight: 600;
+}
+
+.score-card.fresh                    { border-color: var(--fresh); }
+.score-card.fresh .score-big,
+.score-card.fresh .meter-label       { color: var(--fresh); }
+.score-card.fresh .progress-bar      { background-color: var(--fresh); }
+.score-card.rotten                   { border-color: var(--rotten); }
+.score-card.rotten .score-big,
+.score-card.rotten .meter-label      { color: var(--rotten); }
+.score-card.rotten .progress-bar     { background-color: var(--rotten); }
+
+.rate-card {
+    border-style: dashed;
+    border-color: var(--potato);
+}
+
+.rate-card .rate-label {
+    color: var(--potato);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.rate-card .rate-star {
+    font-size: 2.2rem;
+    padding: 0 3px;
+}
+
+.rate-stars {
+    display: flex;
+}
+
+.ep-rate .rate-star {
+    font-size: 1.25rem;
+}
+
+/* ---------- Episode table ---------- */
+.episode-table-wrap {
+    border: 1px solid #3a3128;
+    border-radius: var(--radius);
+}
+
+.episode-table {
+    margin-bottom: 0;
+    color: var(--text);
+    --bs-table-bg: var(--surface);
+    --bs-table-color: var(--text);
+    --bs-table-border-color: #2f2820;
+    --bs-table-hover-bg: var(--surface-2);
+}
+
+.episode-table thead th {
+    background-color: var(--surface-2);
+    color: var(--potato);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px;
+    white-space: nowrap;
+}
+
+.episode-table td {
+    padding: 12px;
+}
+
+.episode-table tbody tr:hover td {
+    background-color: var(--surface-2);
+}
+
+/* :target = the episode whose id is in the URL (#ep-s1e5) gets highlighted */
+.episode-table tr:target td {
+    background-color: #3a2c17;
+}
+
+.ep-number {
+    font-family: "Bebas Neue", Impact, sans-serif;
+    font-size: 1.6rem;
+    color: var(--potato);
+    text-align: center;
+    width: 50px;
+}
+
+.ep-flex {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.ep-still {
+    width: 120px;
+    border-radius: 6px;
+}
+
+.ep-summary {
+    margin: 4px 0 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.ep-date {
+    color: var(--muted);
     font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.ep-score {
+    width: 90px;
+}
+
+.score-pill {
+    display: inline-block;
+    min-width: 48px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    text-align: center;
     font-weight: 600;
     color: #14110d;
 }
 
-@media (max-width: 768px) {
-    .poster-row-item { flex-basis: 135px; }
-    .filter-label    { width: 100%; }
-    .episode         { flex-wrap: wrap; }
-    .episode-still   { display: none; }
-    .episode-rating  { flex-basis: 100%; text-align: left; }
+.mini-bar {
+    height: 4px;
+    margin-top: 6px;
+    background-color: #3a3128;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.mini-bar div {
+    height: 100%;
+}
+
+.ep-rate {
+    width: 150px;
+    white-space: nowrap;
+}
+
+/* ---------- Written reviews ---------- */
+.review-card {
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    background-color: var(--surface);
+    border: 1px solid #2f2820;
+    border-left: 4px solid var(--potato);
+    border-radius: var(--radius);
+}
+
+.review-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.review-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: var(--potato);
+    color: #1a1208;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.review-stars span {
+    color: #4a4036;
+}
+
+.review-stars span.on {
+    color: var(--potato);
+}
+
+.review-stars .review-date {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-left: 8px;
+}
+
+.sample-badge {
+    margin-left: 6px;
+    padding: 1px 8px;
+    border: 1px solid var(--muted);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.7rem;
+}
+
+.review-text {
+    margin: 0;
+    line-height: 1.7;
+}
+
+.review-empty {
+    padding: 30px;
+    text-align: center;
+    background-color: var(--surface);
+    border: 1px dashed #3a3128;
+    border-radius: var(--radius);
+    color: var(--muted);
+}
+
+.review-empty span {
+    font-size: 2rem;
+}
+
+.review-form {
+    padding: 20px;
+    background-color: var(--surface);
+    border: 1px solid #3a3128;
+    border-radius: var(--radius);
+}
+
+.review-form h5 {
+    color: var(--potato);
+    font-weight: 600;
+}
+
+.review-form .form-control {
+    background-color: var(--surface-2);
+    border: 1px solid #3a3128;
+    color: var(--text);
+}
+
+.review-form .form-control:focus {
+    border-color: var(--potato);
+    box-shadow: 0 0 0 3px rgba(224, 165, 72, 0.25);
+}
+
+.review-form .form-control.is-invalid {
+    border-color: var(--rotten);
+}
+
+.review-error {
+    color: var(--rotten);
+    font-weight: 600;
+}
+
+/* Star picker: radio buttons hidden, their labels are the stars.
+   The stars are written 5,4,3,2,1 and shown reversed, so "checked ~ label"
+   lights up the chosen star and all the stars before it. */
+.star-choice {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.star-choice input {
+    display: none;
+}
+
+.star-choice label {
+    font-size: 2rem;
+    color: #4a4036;
+    cursor: pointer;
+    padding: 0 3px;
+}
+
+.star-choice input:checked ~ label,
+.star-choice label:hover,
+.star-choice label:hover ~ label {
+    color: var(--potato);
+}
+
+.star-choice.is-invalid label {
+    color: var(--rotten);
 }

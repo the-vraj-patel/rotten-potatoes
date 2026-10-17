@@ -27,6 +27,7 @@ $rows = array(
 ?>
 
 <!-- ===== Image slider (Bootstrap Carousel, changes every 4 seconds) ===== -->
+<div class="container hero-container">
 <div id="heroSlider" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
 
     <!-- Small dots at the bottom -->
@@ -73,6 +74,7 @@ $rows = array(
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+</div>
 
 <!-- ===== Browse by category ===== -->
 <section class="container section">
@@ -85,7 +87,6 @@ $rows = array(
                 <a href="category.php?type=<?php echo $key; ?>" class="category-tile">
                     <span class="tile-icon"><?php echo $icons[$key]; ?></span>
                     <span><?php echo $label; ?></span>
-                    <small class="tile-count"><?php echo count($catalog[$key]); ?> titles</small>
                 </a>
             </div>
         <?php } ?>
@@ -111,6 +112,19 @@ $rows = array(
     </section>
 <?php } ?>
 
+<!-- ===== Browse movies by industry ===== -->
+<section class="container section">
+    <div class="section-head">
+        <h2>Browse Movies by Industry</h2>
+    </div>
+    <?php
+    $homeIndustries = array("hollywood", "bollywood", "south-indian", "korean", "japanese", "european", "chinese", "world");
+    foreach ($homeIndustries as $ind) {
+    ?>
+        <a class="btn btn-filter big" href="category.php?type=movies&industry=<?php echo $ind; ?>"><?php echo label($ind); ?></a>
+    <?php } ?>
+</section>
+
 <!-- ===== Browse movies by genre ===== -->
 <section class="container section">
     <div class="section-head">
@@ -120,7 +134,7 @@ $rows = array(
     $homeGenres = array("scifi", "mystery", "comedy", "romance", "horror", "thriller", "crime", "fantasy", "biography", "action", "drama", "animation");
     foreach ($homeGenres as $g) {
     ?>
-        <a class="filter-pill big" href="category.php?type=movies&genre=<?php echo $g; ?>"><?php echo label($g); ?></a>
+        <a class="btn btn-filter big" href="category.php?type=movies&genre=<?php echo $g; ?>"><?php echo label($g); ?></a>
     <?php } ?>
 </section>
 

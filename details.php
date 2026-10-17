@@ -67,10 +67,49 @@ if ($found) {
         }
     }
 
-    // Visitor ratings for this title and its episodes
+    // ---- Form processing: a visitor wrote a review ----
+    $reviewError = "";
+    $reviewName  = "";
+    $reviewText  = "";
+    if (isset($_POST["review"])) {
+        $reviewName  = trim($_POST["name"]);
+        $reviewText  = trim($_POST["review"]);
+        $reviewStars = isset($_POST["review_stars"]) ? (int) $_POST["review_stars"] : 0;
+
+        if (!$dbReady) {
+            $reviewError = "Reviews are not available: start MySQL and import database.sql first.";
+        } elseif ($reviewName == "" || strlen($reviewName) > 50) {
+            $reviewError = "Please enter your name (up to 50 characters).";
+        } elseif ($reviewStars < 1 || $reviewStars > 5) {
+            $reviewError = "Please choose how many stars you give.";
+        } elseif (strlen($reviewText) < 10 || strlen($reviewText) > 1000) {
+            $reviewError = "Your review should be between 10 and 1000 characters.";
+        } elseif (!saveReview($conn, $id, $reviewName, $reviewStars, $reviewText)) {
+            $reviewError = "Reviews are not set up yet: import database.sql again in phpMyAdmin.";
+        } else {
+            $message = "Thanks! Your review was posted.";
+            $reviewName = "";
+            $reviewText = "";
+        }
+    }
+
+    // Visitor ratings and written reviews for this title
     $ratings = array();
+    $reviews = array();
     if ($dbReady) {
         $ratings = getRatings($conn, $id, session_id());
+        $reviews = getReviews($conn, $id);
+    }
+
+    // Text above the stars: "Rate this movie", "Rate this show", ...
+    if ($isBook) {
+        $rateLabel = "Rate this book";
+    } elseif ($movie["type"] == "anime" && $isShow) {
+        $rateLabel = "Rate this anime";
+    } elseif ($isShow) {
+        $rateLabel = "Rate this show";
+    } else {
+        $rateLabel = "Rate this movie";
     }
 
     $pageTitle  = $movie["title"] . " (" . $movie["year"] . ") - Rotten Potatoes";
@@ -194,34 +233,33 @@ include "includes/header.php";
                     </div>
                 <?php } ?>
 
-                <!-- 6. Rating -->
-                <div class="info-block">
+                <!-- 6. Rating: score cards -->
+                <div class="info-block" id="rating">
                     <h4>Rating</h4>
-                    <div class="rating-row">
+                    <div class="row g-3">
                         <?php if ($movie["rating"] != null) { ?>
-                            <div class="rating-box">
-                                <div class="stars">
-                                    <?php
-                                    // Rating is out of 10, stars are out of 5
-                                    $stars = round($movie["rating"] / 2);
-                                    for ($i = 1; $i <= 5; $i++) {
-                                        if ($i <= $stars) {
-                                            echo '<span class="star on">★</span>';
-                                        } else {
-                                            echo '<span class="star">★</span>';
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="score-card">
+                                    <span class="score-title"><?php if ($isBook) { echo "Readers' Score"; } else { echo "Audience Score"; } ?></span>
+                                    <div class="score-big"><?php echo $movie["rating"]; ?><small>/10</small></div>
+                                    <div class="stars">
+                                        <?php
+                                        // Rating is out of 10, stars are out of 5
+                                        $stars = round($movie["rating"] / 2);
+                                        for ($i = 1; $i <= 5; $i++) {
+                                            if ($i <= $stars) {
+                                                echo '<span class="star on">★</span>';
+                                            } else {
+                                                echo '<span class="star">★</span>';
+                                            }
                                         }
-                                    }
-                                    ?>
+                                        ?>
+                                    </div>
+                                    <!-- Bootstrap progress bar: width = rating as a percentage -->
+                                    <div class="progress score-bar">
+                                        <div class="progress-bar" style="width: <?php echo $movie["rating"] * 10; ?>%"></div>
+                                    </div>
                                 </div>
-                                <p><strong><?php echo $movie["rating"]; ?></strong>/10 &middot;
-                                    <?php
-                                    if ($isBook) {
-                                        echo "Readers (" . $movie["ratingCount"] . ")";
-                                    } else {
-                                        echo "Audience";
-                                    }
-                                    ?>
-                                </p>
                             </div>
                         <?php } ?>
 
@@ -236,16 +274,23 @@ include "includes/header.php";
                                 $meterText  = "Rotten Potato";
                             }
                         ?>
-                            <div class="rating-box <?php echo $meterClass; ?>">
-                                <div class="meter-number">🥔 <?php echo $movie["potato"]; ?>%</div>
-                                <p><?php echo $meterText; ?> &middot; Potato Meter</p>
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="score-card <?php echo $meterClass; ?>">
+                                    <span class="score-title">Potato Meter</span>
+                                    <div class="score-big">🥔 <?php echo $movie["potato"]; ?><small>%</small></div>
+                                    <span class="meter-label"><?php echo $meterText; ?></span>
+                                    <div class="progress score-bar">
+                                        <div class="progress-bar" style="width: <?php echo $movie["potato"]; ?>%"></div>
+                                    </div>
+                                </div>
                             </div>
                         <?php } ?>
 
                         <!-- Visitors rate the whole title here -->
-                        <div class="rating-box">
-                            <?php echo ratingForm($id, $season, "", $ratings); ?>
-                            <p>Your rating</p>
+                        <div class="col-sm-6 col-xl-4">
+                            <div class="score-card rate-card">
+                                <?php echo ratingForm($id, $season, "", $ratings, $rateLabel); ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -274,7 +319,10 @@ include "includes/header.php";
         }
         ?>
 
-        <!-- 9. Where to watch / read -->
+        <!-- 9. Written reviews -->
+        <?php include "includes/reviews.php"; ?>
+
+        <!-- 10. Where to watch / read -->
         <section class="info-block">
             <?php if ($isBook) { ?>
                 <h4>Where to Read</h4>
@@ -291,7 +339,7 @@ include "includes/header.php";
             <?php } ?>
         </section>
 
-        <!-- 10. Trailer (YouTube embed inside a responsive 16:9 box) -->
+        <!-- 11. Trailer (YouTube embed inside a responsive 16:9 box) -->
         <?php if (!$isBook) { ?>
             <section class="info-block">
                 <h4>Trailer</h4>

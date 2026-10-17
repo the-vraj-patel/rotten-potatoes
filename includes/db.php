@@ -1,6 +1,6 @@
 <?php
 /*
- * db.php — connects to MySQL and handles the visitors' star ratings (CRUD).
+ * db.php — connects to MySQL and handles the visitors' star ratings and reviews (CRUD).
  *
  * Before using it, create the database by importing database.sql in phpMyAdmin.
  * XAMPP's default MySQL login is user "root" with an empty password.
@@ -68,5 +68,34 @@ function getRatings($conn, $item, $voter) {
     }
 
     return $ratings;
+}
+
+// CREATE: saves a written review
+function saveReview($conn, $item, $name, $stars, $review) {
+    $stmt = mysqli_prepare($conn, "INSERT INTO reviews (item, name, stars, review) VALUES (?, ?, ?, ?)");
+    if (!$stmt) {
+        return false;                   // the reviews table doesn't exist yet
+    }
+    mysqli_stmt_bind_param($stmt, "ssis", $item, $name, $stars, $review);
+    mysqli_stmt_execute($stmt);
+    return true;
+}
+
+// READ: all written reviews of one title, newest first
+function getReviews($conn, $item) {
+    $stmt = mysqli_prepare($conn, "SELECT name, stars, review, is_sample, created_at
+                                   FROM reviews WHERE item = ? ORDER BY created_at DESC, id DESC");
+    if (!$stmt) {
+        return array();                 // the reviews table doesn't exist yet
+    }
+    mysqli_stmt_bind_param($stmt, "s", $item);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $reviews = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $reviews[] = $row;
+    }
+    return $reviews;
 }
 ?>
